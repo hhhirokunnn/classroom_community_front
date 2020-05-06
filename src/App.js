@@ -4,10 +4,9 @@ import { Home }  from '@styled-icons/boxicons-solid/Home'
 import styled from 'styled-components'
 
 import { makeStyles } from '@material-ui/core/styles';
-import Collapse from '@material-ui/core/Collapse';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import MinclaHead from './pages/components/common/MinclaHead'
+import MinclaBody from './pages/components/common/MinclaBody'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -145,66 +144,7 @@ function App() {
         {/* head */}
         <MinclaHead />
         {/* body wrap */}
-        <div style={{ display: 'block', backgroundColor: 'lemonchiffon', height: '880px'}}>
-          {/* body */}
-          <div style={{ display: 'flex', paddingTop: '30px' }}>
-            {/* left content */}
-            <div style={{ width: '18%', marginLeft: '30px' }}>
-              {/* left menu */}  
-              <div>
-                {/* ikko ooi */}
-                <div>
-                  {/* mokuji box */}
-                  <div style={{ marginBottom: '20px' }}>
-                    {/* mokuji title box */}
-                    <div style={{ borderBottom: '3px dotted goldenrod', width: '80%', fontSize: '18px', paddingBottom: '5px' }}>
-                      <strong style={{ color: 'salmon', padding: '0 5px 0 5px' }}>▼</strong><strong style={{}}>もくじ</strong>  
-                    </div>
-                    {/* mokuji list box */}
-                    <div style={{ paddingLeft: '15px', fontSize: '12px', fontWeight: 'bold' }}>
-                      <div style={{ margin: '10px 0 10px 0' }}>オンラインクラスルームとは？</div>
-                      <div style={{ margin: '10px 0 10px 0' }}>準備</div>
-                      <div style={{ margin: '10px 0 10px 0' }}>やってみる</div>
-                      <div style={{ margin: '10px 0 10px 0' }}>さいごに</div>
-                    </div>
-                  </div>
-                  {/* activity box */}
-                  <div style={{ marginBottom: '10px' }}>
-                    <div style={{ borderBottom: '3px dotted goldenrod', width: '80%', fontSize: '18px', paddingBottom: '5px' }}>
-                      <strong style={{ color: 'salmon', padding: '0 5px 0 5px'}}>▶︎</strong><strong>アクティビティとは？</strong>
-                    </div>
-                  </div>
-                  {/* post box */}
-                  <div style={{ marginBottom: '10px' }}>
-                    <div style={{ borderBottom: '3px dotted goldenrod', width: '80%', fontSize: '18px', paddingBottom: '5px' }}>
-                      <strong style={{ color: 'salmon', padding: '0 5px 0 5px'}}>▶︎</strong><strong>投稿とは？</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* main content */}
-            <div style={{ width: '66%', backgroundColor: 'white', height: '700px', border: '3px solid gainsboro'}}>
-              {/* mokuji box */}
-              <FormControlLabel
-                    // control={<Switch checked={checked} onChange={handleChange} />}
-                    control={<div onClick={() => setIsChecked(!isChecked)}> click here</div>}
-                  />
-                  <div>
-                    <Collapse in={isChecked}>
-                      <div>bababa</div>
-                    </Collapse>
-                    <Collapse in={isChecked}>
-                      <div>bababa</div>
-                    </Collapse>
-                  </div>
-            </div>
-            {/* right menu */}
-            {/* <div style={{ }}>
-              
-            </div> */}
-          </div>
-        </div>
+        <MinclaBody/>
       </div>
     </div>
   );

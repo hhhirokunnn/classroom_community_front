@@ -1,14 +1,40 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
-import { Home }  from '@styled-icons/boxicons-solid/Home'
-import styled from 'styled-components'
-import topTitle from './assets/images/top_title.png'
 
-import { makeStyles } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { 
+  Wrap,
+  MenuTitleIcon,
+  MenuItemBox,
+  MenuItemListBox,
+  MenuTitleBox
+} from './style'
 
-const MenuItem = () => {
+const MenuItem = ({ title, itemList }) => {
 
-  return (<></>)
+  const [isClicked, setIsClicked] = useState(false)
+
+  const renderPage = () => alert('TODO: Implementation renderPage')
+
+  const titleIcon = () => isClicked ? '▼' : '▶︎'
+
+  return (<>
+    <Wrap>
+    <FormControlLabel
+      control={
+        <MenuTitleBox onClick={() => setIsClicked(!isClicked)}>
+          <MenuTitleIcon>{titleIcon()}</MenuTitleIcon><strong>{title}</strong>
+        </MenuTitleBox>
+      }
+    />
+      <MenuItemListBox>
+        {itemList.map( (item, index) => (
+          <Collapse key={index} in={isClicked}>
+            <MenuItemBox onClick={renderPage}>{item.title}</MenuItemBox>
+          </Collapse>))}
+      </MenuItemListBox>
+    </Wrap>
+  </>)
 }
+
+export default MenuItem
