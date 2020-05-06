@@ -2,7 +2,12 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Home }  from '@styled-icons/boxicons-solid/Home'
 import styled from 'styled-components'
-import topTitle from './assets/images/top_title.png'
+
+import { makeStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+import MinclaHead from './pages/components/common/MinclaHead'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -111,6 +116,11 @@ function App() {
   }
 
   const saveTokenToStorage = token => localStorage.setItem('token', token)
+
+  const viewTreeclasses = useViewTreeStyles();
+
+  const [isChecked, setIsChecked] = useState(true)
+
   return (
     <div className="App">
       {/* hello!
@@ -133,72 +143,7 @@ function App() {
       {/* wrap */}
       <div>
         {/* head */}
-        <div style={{ height:'150px' }}>
-          <div style={{ backgroundColor: '', height: '100px', textAlign: 'center', marginBottom: '10px'}}>
-          <LogImg src={topTitle}/>
-          </div>
-          {/* green obi */}
-          <div style={{ backgroundColor: 'mediumseagreen', height: '50px', position: 'relative' }}>
-            {/* navs box */}
-            <div style={{ marginLeft: '26%' }}>
-              {/* toppage box */}
-              <div style={{ position: 'absolute', top: '-16px' }}>
-                {/* toppage icon box */}
-                <div style={{ textAlignLast: 'center' }}>
-                  <HomeIcon>
-                    <HomeSvg/>
-                  </HomeIcon>
-                </div>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
-                  トップページ
-                </div>
-              </div>
-              {/* activity box */}
-              <div style={{ position: 'absolute', top: '-16px', marginLeft: '12%' }}>
-                {/* activity icon box */}
-                <div style={{ textAlignLast: 'center' }}>
-                  <HomeIcon>
-                    <HomeSvg/>
-                  </HomeIcon>
-                </div>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
-                  アクティビティ
-                </div>
-              </div>
-              {/* post box */}
-              <div style={{ position: 'absolute', top: '-16px', marginLeft: '25%' }}>
-                {/* post icon box */}
-                <div style={{ textAlignLast: 'center' }}>
-                  <HomeIcon>
-                    <HomeSvg/>
-                  </HomeIcon>
-                </div>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
-                  ポスト
-                </div>
-              </div>
-              {/* inquiry box */}
-              <div style={{ position: 'absolute', top: '-16px', marginLeft: '34%' }}>
-                {/* inquiry icon box */}
-                <div style={{ textAlignLast: 'center' }}>
-                  <HomeIcon>
-                    <HomeSvg/>
-                  </HomeIcon>
-                </div>
-                <div style={{ color: 'white', fontWeight: 'bold', fontSize: '16px' }}>
-                  お問い合わせ
-                </div>
-              </div>
-              {/* login box */}
-              <div style={{ marginLeft: '64%', paddingTop: '8px', width: '90px' }}>
-                {/* login icon box */}
-                <div style={{ color: 'mediumseagreen', fontWeight: 'bold', fontSize: '16px', backgroundColor: 'white', borderRadius: '18px', padding: '5px 10px', textAlignLast: 'center' }}>
-                  ログイン
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <MinclaHead />
         {/* body wrap */}
         <div style={{ display: 'block', backgroundColor: 'lemonchiffon', height: '880px'}}>
           {/* body */}
@@ -209,7 +154,7 @@ function App() {
               <div>
                 {/* ikko ooi */}
                 <div>
-                  {/* mokuji box */}  
+                  {/* mokuji box */}
                   <div style={{ marginBottom: '20px' }}>
                     {/* mokuji title box */}
                     <div style={{ borderBottom: '3px dotted goldenrod', width: '80%', fontSize: '18px', paddingBottom: '5px' }}>
@@ -240,7 +185,19 @@ function App() {
             </div>
             {/* main content */}
             <div style={{ width: '66%', backgroundColor: 'white', height: '700px', border: '3px solid gainsboro'}}>
-              
+              {/* mokuji box */}
+              <FormControlLabel
+                    // control={<Switch checked={checked} onChange={handleChange} />}
+                    control={<div onClick={() => setIsChecked(!isChecked)}> click here</div>}
+                  />
+                  <div>
+                    <Collapse in={isChecked}>
+                      <div>bababa</div>
+                    </Collapse>
+                    <Collapse in={isChecked}>
+                      <div>bababa</div>
+                    </Collapse>
+                  </div>
             </div>
             {/* right menu */}
             {/* <div style={{ }}>
@@ -254,6 +211,12 @@ function App() {
 }
 
 export default App;
+
+const useViewTreeStyles = makeStyles({
+  root: {
+    marginBottom: '20px'
+  }
+})
 
 const LogImg = styled.img`
   margin: auto
