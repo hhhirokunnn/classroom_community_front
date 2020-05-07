@@ -4,8 +4,8 @@ import {
   ContentTitle,
   ContentDescription,
   ContentImg
-}  from '../../style'
-import sample from '../../../../../../../../assets/images/sample.png'
+}  from '../style'
+import sample from '../../../../../assets/images/sample.png'
 
 const Preparation = () => {
 

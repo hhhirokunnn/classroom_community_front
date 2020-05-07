@@ -7,10 +7,10 @@ const PageNavigation = () => {
   const [isFocussed, setIsFocussed] = useState(false)
 
   return (<>
-    <PageSelectButton label='トップページ' svgComponent={<HomeSvg/>}/>
-    <PageSelectButton label='アクティビティ' svgComponent={<HomeSvg/>} marginLeft='12%'/>
-    <PageSelectButton label='ポスト' svgComponent={<HomeSvg/>} marginLeft='25%'/>
-    <PageSelectButton label='お問い合わせ' svgComponent={<HomeSvg/>} marginLeft='34%'/>
+    <PageSelectButton label='トップページ' svgComponent={<HomeSvg/>} selfPath='top'/>
+    <PageSelectButton label='アクティビティ' svgComponent={<HomeSvg/>} marginLeft='12%' selfPath='activity'/>
+    <PageSelectButton label='ポスト' svgComponent={<HomeSvg/>} marginLeft='25%' selfPath='post'/>
+    <PageSelectButton label='お問い合わせ' svgComponent={<HomeSvg/>} marginLeft='34%' selfPath='inquiry'/>
     <LoginButtonBox onMouseOver={() => setIsFocussed(true)} onMouseOut={() => setIsFocussed(false)} isFocussed={isFocussed}>
       <LoginButton isFocussed={isFocussed}>
         ログイン
