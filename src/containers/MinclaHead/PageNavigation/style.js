@@ -1,17 +1,25 @@
 import styled from 'styled-components'
 import { Home }  from '@styled-icons/boxicons-solid/Home'
+import { Game }  from '@styled-icons/boxicons-solid/Game'
+import { MailSend }  from '@styled-icons/remix-line/MailSend'
+import { Questionnaire }  from '@styled-icons/remix-fill/Questionnaire'
+import { Login }  from '@styled-icons/entypo/Login'
+import { LogOut }  from '@styled-icons/entypo/LogOut'
 
 export const LoginButtonBox = styled.div`
   cursor: pointer;
   margin-left: 64%;
-  padding-top: ${props => props.isFocussed ? '5px' : '8px' };
-  width: ${props => props.isFocussed ? '94px' : '90px' };
+  // padding-top: ${props => props.isFocussed ? '5px' : '8px' };
+  // width: ${props => props.isFocussed ? '94px' : '90px' };
+  padding-top: 8px;
+  width: 108px;
 `
 
-export const LoginButton = styled.div`
+export const StyledLoginButton = styled.div`
   color: ${props => props.isFocussed ? 'salmon' : 'mediumseagreen' };
   ${props => props.isFocussed && 'border: 3px solid salmon'};
-  padding: ${props => props.isFocussed ? '5px 12px' : '5px 10px' };
+  // padding: ${props => props.isFocussed ? '5px 12px' : '5px 10px' };
+  padding: 5px 10px;
   font-weight: bold;
   font-size: 16px;
   background-color: white;
@@ -20,6 +28,41 @@ export const LoginButton = styled.div`
 `
 
 export const HomeSvg = styled(Home)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
+`
+
+export const GameSvg = styled(Game)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
+`
+
+export const MailSendSvg = styled(MailSend)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
+`
+
+export const QuestionnaireSvg = styled(Questionnaire)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
+`
+
+export const LoginSvg = styled(Login)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
+`
+
+export const LogoutSvg = styled(LogOut)`
   color: mediumseagreen;
   width: 30px;
   height: 30px;

@@ -5,10 +5,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { 
   Wrap,
   MenuTitleIcon,
-  MenuItemListBox,
-  MenuTitleBox
+  MenuItemListBox
 } from './style'
 import MenuItem from './MenuItem'
+import Box from '@material-ui/core/Box';
 
 const MenuItemList = ({ title, itemList, setMenuItemTag, menuItemTag }) => {
 
@@ -26,9 +26,15 @@ const MenuItemList = ({ title, itemList, setMenuItemTag, menuItemTag }) => {
     <Wrap>
       <FormControlLabel
         control={
-          <MenuTitleBox onClick={() => setIsClicked(!isClicked)}>
+          <Box
+            component='div'
+            width={{ md: '200px', lg: "220px" }}
+            borderBottom='3px dotted goldenrod'
+            fontSize='16px'
+            paddingBottom='5px'
+            onClick={() => setIsClicked(!isClicked)}>
             <MenuTitleIcon>{titleIcon()}</MenuTitleIcon><strong>{title}</strong>
-          </MenuTitleBox>
+          </Box>
         }
       />
       <Collapse in={isClicked}>

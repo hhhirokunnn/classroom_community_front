@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ButtonBox, ButtonIcon, ButtonLabel, HomeIcon } from './style'
+import Box from '@material-ui/core/Box';
 
 const PageSelectButton = ({ label, marginLeft, svgComponent, selfPath }) => {
 
@@ -20,7 +21,11 @@ const PageSelectButton = ({ label, marginLeft, svgComponent, selfPath }) => {
   }
 
   return (<>
-    <ButtonBox marginLeft={marginLeft}>
+    <Box 
+      position='absolute'
+      top={{ xs: '7px', sm: '-16px', md: "-16px", lg: "-16px" }}
+      cursor='pointer'>  
+    {/* <ButtonBox marginLeft={marginLeft}> */}
       {/* toppage icon box */}
       <div onMouseOver={() => setIsFocussed(true)} onMouseOut={onMouseOut} onClick={renderToMyPath}>
         <ButtonIcon>
@@ -32,7 +37,8 @@ const PageSelectButton = ({ label, marginLeft, svgComponent, selfPath }) => {
           {label}
         </ButtonLabel>
       </div>
-    </ButtonBox>
+    {/* </ButtonBox> */}
+    </Box>
   </>)
 }
 

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
 export const ButtonBox = styled.div`
-  position: absolute;
-  top: -16px;
-  cursor: pointer;
+  // position: absolute;
+  // top: -16px;
+  // cursor: pointer;
   ${props => props.marginLeft && `margin-left: ${props.marginLeft}` }
 `
 

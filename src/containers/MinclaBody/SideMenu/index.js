@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import MenuItemList from './MenuItemList'
 
 const SideMenu = ({ sideMenuItemList, setMenuItemTag, menuItemTag }) => {
@@ -12,7 +12,8 @@ const SideMenu = ({ sideMenuItemList, setMenuItemTag, menuItemTag }) => {
             title={memnu.title} 
             itemList={memnu.items} 
             setMenuItemTag={setMenuItemTag}
-            menuItemTag={menuItemTag} />)})}
+            menuItemTag={menuItemTag} />
+          )})}
     </div>
   </>)
 }

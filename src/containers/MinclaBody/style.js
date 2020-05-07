@@ -6,12 +6,7 @@ export const Wrap = styled.div`
   height: 880px;
 `
 
-export const StyledBody = styled.div`
+export const Body = styled.div`
   display: flex;
   padding-top: 30px;
-`
-
-export const LeftContent = styled.div`
-  width: 18%;
-  margin-left: 50px;
 `

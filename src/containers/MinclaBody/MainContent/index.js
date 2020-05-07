@@ -3,6 +3,10 @@ import {
   Wrap,
 } from './style';
 import TopMainContent from './TopMainContent'
+import InquiryContent from './InquiryContent'
+import LoginContent from './LoginContent'
+import PostContent from './PostContent'
+import ActivityContent from './ActivityContent'
 
 const MainContent = ({ menuItemTag }) => {
 
@@ -12,13 +16,13 @@ const MainContent = ({ menuItemTag }) => {
       case '/top': 
         return <TopMainContent menuItemTag={menuItemTag}/>
       case '/activity': 
-        return <></>
+        return <ActivityContent/>
       case '/post': 
-        return <></>
+        return <PostContent/>
       case '/inquiry': 
-        return <></>
-      case '/signin': 
-        return <></>
+        return <InquiryContent/>
+      case '/login': 
+        return <LoginContent/>
       default:
         return <TopMainContent menuItemTag={menuItemTag}/>
     }
