@@ -51,6 +51,19 @@ export const login = (mail, password) => {
       e.response ? alert(e.response.data.message) : alert(e)})
 }
 
+export const signUp = (userName, mail, password) => {
+
+  return minclaBaseAxios().post('/users', 
+    { name: userName, mail: mail, password: password })
+    .then(res => {
+      saveTokenToStorage(res.data.content.token)
+      alert(res.data.message)
+      window.location.href = '/post'
+    })
+    .catch(e => {
+      e.response ? alert(e.response.data.message) : alert(e)})
+}
+
 export const fetchArticles = () => minclaBaseAxios().get('/articles')
 
 export const createArticle = ({file, title, summary, userId }) => {

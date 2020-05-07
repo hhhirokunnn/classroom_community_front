@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { UserAdd }  from '@styled-icons/heroicons-solid/UserAdd';
 
 export const Wrap = styled.div`
   text-align: center;
@@ -19,4 +20,11 @@ export const ContentTitle = styled.div`
 export const ContentDescription = styled.div`
   font-size: 20px;
   margin-bottom: 24px;
+`
+
+export const UserAddSvg = styled(UserAdd)`
+  color: mediumseagreen;
+  width: 30px;
+  height: 30px;
+  align-item: center;
 `

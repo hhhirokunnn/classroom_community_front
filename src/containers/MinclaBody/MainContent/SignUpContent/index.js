@@ -14,21 +14,32 @@ import { login } from '../../../../services/MinclaClient'
 //   StyledLoginForm
 // }  from './style'
 
-const LoginContent = ({ }) => {
+const SignUpContent = ({ }) => {
 
+  const [userName, setUserName] = useState('')
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
+  const [userNameError, setUserNameError] = useState('')
   const [mailError, setMailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
   const [disabledButton, setDisabledButton] = useState(true)
 
   useEffect(()=>{
     validateButton()
-  }, [mailError, passwordError])
+  }, [userNameError, mailError, passwordError])
 
   useEffect(()=>{
     setDisabledButton(true)
   }, [])
+
+  const validateUserName = () => {
+    userName.length > 0 ? setUserNameError('') : setUserNameError('入力してください')
+  }
+
+  const inputUserName = _inputtingUserName => {
+    setUserName(_inputtingUserName)
+    validateMail(userName)
+  }
 
   const validateMail = () => {
     mail.length > 0 ? setMailError('') : setMailError('入力してください')
@@ -60,9 +71,26 @@ const LoginContent = ({ }) => {
     <Wrap>
       <div>
         <ContentTitle>
-          ログイン
+          ユーザ登録
         </ContentTitle>
         <form noValidate autoComplete="off">
+          <Box display="block" marginBottom={3}>
+            {userNameError.length > 0 ? 
+              <TextField
+                error
+                label="なまえ"
+                value={userName}
+                onChange={e => inputUserName(e.target.value)}
+                onBlur={validateUserName}
+                helperText={userNameError}
+              />: 
+              <TextField
+                label="なまえ"
+                value={mail}
+                onChange={e => inputUserName(e.target.value)}
+                onBlur={validateUserName}
+              />}
+          </Box>
           <Box display="block" marginBottom={3}>
             {mailError.length > 0 ? 
               <TextField
@@ -99,15 +127,13 @@ const LoginContent = ({ }) => {
           </Box>
         </form>
         {disabledButton ? 
-          <Button variant="contained" disabled>ログイン</Button>
-          : <Button variant="contained" onClick={requestLogin}>ログイン</Button>}
+          <Button variant="contained" disabled>登録する</Button>
+          : <Button variant="contained" onClick={requestLogin}>登録する</Button>}
         <div 
-          onClick={() => window.location.href = '/sign-up'}
-          style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>
-            登録はこちら
-        </div>
+          onClick={() => window.location.href = '/login'}
+          style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>ログインはこちら</div>
       </div>
     </Wrap>)
 }
 
-export default LoginContent
+export default SignUpContent

@@ -7,6 +7,7 @@ import InquiryContent from './InquiryContent'
 import LoginContent from './LoginContent'
 import PostContent from './PostContent'
 import ActivityContent from './ActivityContent'
+import SignUpContent from './SignUpContent'
 
 const MainContent = ({ menuItemTag }) => {
 
@@ -23,6 +24,8 @@ const MainContent = ({ menuItemTag }) => {
         return <InquiryContent/>
       case '/login': 
         return <LoginContent/>
+      case '/sign-up':
+        return <SignUpContent/>
       default:
         return <TopMainContent menuItemTag={menuItemTag}/>
     }

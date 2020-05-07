@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ButtonBox, ButtonIcon, ButtonLabel, HomeIcon } from './style'
 import Box from '@material-ui/core/Box';
 
-const PageSelectButton = ({ label, marginLeft, svgComponent, selfPath }) => {
+const PageSelectButton = ({ label, svgComponent, selfPath }) => {
 
   const [isFocussed, setIsFocussed] = useState(false)
 
