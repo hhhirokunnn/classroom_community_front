@@ -32,6 +32,7 @@ const LoginContent = ({ }) => {
 
   const validateMail = () => {
     mail.length > 0 ? setMailError('') : setMailError('入力してください')
+    mail.includes('@') ? setMailError('') : setMailError('アドレスの形式ではありません')
   }
 
   const inputMail = _inputtingMail => {
@@ -63,7 +64,7 @@ const LoginContent = ({ }) => {
           ログイン
         </ContentTitle>
         <form noValidate autoComplete="off">
-          <Box display="block" marginBottom={3}>
+          <Box display="block" marginBottom={3} width='300px' marginLeft='34%'>
             {mailError.length > 0 ? 
               <TextField
                 error
@@ -72,15 +73,17 @@ const LoginContent = ({ }) => {
                 onChange={e => inputMail(e.target.value)}
                 onBlur={validateMail}
                 helperText={mailError}
+                fullWidth={true}
               />: 
               <TextField
                 label="メールアドレス"
                 value={mail}
                 onChange={e => inputMail(e.target.value)}
                 onBlur={validateMail}
+                fullWidth={true}
               />}
           </Box>
-          <Box display="block" marginBottom={5}>
+          <Box display="block" marginBottom={5} width='300px' marginLeft='34%'>
             {passwordError.length > 0 ? 
               <TextField
                 error
@@ -89,12 +92,14 @@ const LoginContent = ({ }) => {
                 onChange={e => inputPassword(e.target.value)}
                 onBlur={validatePassword}
                 helperText={passwordError}
+                fullWidth={true}
               />: 
               <TextField
                 label="パスワード"
                 value={password}
                 onChange={e => inputPassword(e.target.value)}
                 onBlur={validatePassword}
+                fullWidth={true}
               />}
           </Box>
         </form>

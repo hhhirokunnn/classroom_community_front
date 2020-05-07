@@ -8,7 +8,7 @@ import {
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import { login } from '../../../../services/MinclaClient'
+import { signUp } from '../../../../services/MinclaClient'
 
 // import { 
 //   StyledLoginForm
@@ -34,6 +34,7 @@ const SignUpContent = ({ }) => {
 
   const validateUserName = () => {
     userName.length > 0 ? setUserNameError('') : setUserNameError('入力してください')
+    userName.length < 31 ? setUserNameError('') : setUserNameError('30文字以内にしてください')
   }
 
   const inputUserName = _inputtingUserName => {
@@ -43,6 +44,7 @@ const SignUpContent = ({ }) => {
 
   const validateMail = () => {
     mail.length > 0 ? setMailError('') : setMailError('入力してください')
+    mail.includes('@') ? setMailError('') : setMailError('アドレスの形式ではありません')
   }
 
   const inputMail = _inputtingMail => {
@@ -63,8 +65,8 @@ const SignUpContent = ({ }) => {
     setDisabledButton(mailError.length > 0 || passwordError.length > 0)
   }
 
-  const requestLogin = () => {
-    login(mail, password)
+  const requestSingUp = () => {
+    signUp(userName, mail, password)
   }
 
   return (
@@ -74,7 +76,7 @@ const SignUpContent = ({ }) => {
           ユーザ登録
         </ContentTitle>
         <form noValidate autoComplete="off">
-          <Box display="block" marginBottom={3}>
+          <Box display="block" marginBottom={3} width='300px' marginLeft='34%'>
             {userNameError.length > 0 ? 
               <TextField
                 error
@@ -83,15 +85,17 @@ const SignUpContent = ({ }) => {
                 onChange={e => inputUserName(e.target.value)}
                 onBlur={validateUserName}
                 helperText={userNameError}
+                fullWidth={true}
               />: 
               <TextField
                 label="なまえ"
-                value={mail}
+                value={userName}
                 onChange={e => inputUserName(e.target.value)}
                 onBlur={validateUserName}
+                fullWidth={true}
               />}
           </Box>
-          <Box display="block" marginBottom={3}>
+          <Box display="block" marginBottom={3} width='300px' marginLeft='34%'>
             {mailError.length > 0 ? 
               <TextField
                 error
@@ -100,15 +104,17 @@ const SignUpContent = ({ }) => {
                 onChange={e => inputMail(e.target.value)}
                 onBlur={validateMail}
                 helperText={mailError}
+                fullWidth={true}
               />: 
               <TextField
                 label="メールアドレス"
                 value={mail}
                 onChange={e => inputMail(e.target.value)}
                 onBlur={validateMail}
+                fullWidth={true}
               />}
           </Box>
-          <Box display="block" marginBottom={5}>
+          <Box display="block" marginBottom={5} width='300px' marginLeft='34%'>
             {passwordError.length > 0 ? 
               <TextField
                 error
@@ -117,21 +123,25 @@ const SignUpContent = ({ }) => {
                 onChange={e => inputPassword(e.target.value)}
                 onBlur={validatePassword}
                 helperText={passwordError}
+                fullWidth={true}
               />: 
               <TextField
                 label="パスワード"
                 value={password}
                 onChange={e => inputPassword(e.target.value)}
                 onBlur={validatePassword}
+                fullWidth={true}
               />}
           </Box>
         </form>
         {disabledButton ? 
           <Button variant="contained" disabled>登録する</Button>
-          : <Button variant="contained" onClick={requestLogin}>登録する</Button>}
+          : <Button variant="contained" onClick={requestSingUp}>登録する</Button>}
         <div 
           onClick={() => window.location.href = '/login'}
-          style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>ログインはこちら</div>
+          style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>
+            ログインはこちら
+        </div>
       </div>
     </Wrap>)
 }
