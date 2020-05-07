@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import SideMenu from './SideMenu';
+import SideMenu from './MainContent/Top/SideMenu';
+import MainContent from './MainContent';
 import { 
   Wrap, 
   StyledBody,
@@ -15,12 +16,9 @@ const MinclaBody = () => {
           <SideMenu />
         </LeftContent>
         {/* main content */}
-        <div style={{ width: '66%', backgroundColor: 'white', height: '700px', border: '3px solid gainsboro'}}>
-        </div>
+        <MainContent />
         {/* right menu */}
-        {/* <div style={{ }}>
-          
-        </div> */}
+        {/* <div style={{ }}></div> */}
       </StyledBody>
     </Wrap>
   </>)

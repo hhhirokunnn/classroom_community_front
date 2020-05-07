@@ -8,7 +8,7 @@ export const ButtonBox = styled.div`
 `
 
 export const ButtonIcon = styled.div`
-  text-align-last: center;
+  text-align: center;
 `
 
 export const ButtonLabel = styled.div`

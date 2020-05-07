@@ -16,7 +16,7 @@ export const LoginButton = styled.div`
   font-size: 16px;
   background-color: white;
   border-radius: 18px;
-  text-align-last: center;
+  text-align: center;
 `
 
 export const HomeSvg = styled(Home)`

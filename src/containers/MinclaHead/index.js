@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 // import topTitle from 'src/assets/images/top_title.png'
-import topTitle from '../../../../assets/images/top_title.png'
+import topTitle from '../../assets/images/top_title.png'
 import PageNavigation from './PageNavigation'
 
 const MinclaHead = () => {

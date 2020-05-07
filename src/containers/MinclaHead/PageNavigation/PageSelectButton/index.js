@@ -5,8 +5,6 @@ const PageSelectButton = ({ label, marginLeft, svgComponent }) => {
 
   const [isFocussed, setIsFocussed] = useState(false)
 
-  const onFocus = () => setIsFocussed(true)
-
   return (<>
     <ButtonBox marginLeft={marginLeft}>
       {/* toppage icon box */}

@@ -1,32 +1,32 @@
 import React, { useState, useRef } from 'react';
-import MenuItem from './MenuItem'
+import MenuItemList from './MenuItemList'
 
 const SideMenu = () => {
 
   const mokujiItemList = [
     { 
       title: 'オンラインクラスルームとは？',
-      url: ''
+      url: 'online'
     },
     { 
       title: 'じゅんび',
-      url: ''
+      url: 'prepare'
     },
     { 
       title: 'やってみる',
-      url: ''
+      url: 'try'
     },
     { 
       title: 'さいごに',
-      url: ''
+      url: 'last'
     },
   ]
 
   return (<>
     <div>
-      <MenuItem title='もくじ' itemList={mokujiItemList} />
-      <MenuItem title='アクティビティとは？' itemList={mokujiItemList} />
-      <MenuItem title='ポストとは？' itemList={mokujiItemList} />
+      <MenuItemList title='もくじ' itemList={mokujiItemList} />
+      <MenuItemList title='アクティビティとは？' itemList={mokujiItemList} />
+      <MenuItemList title='ポストとは？' itemList={mokujiItemList} />
     </div>
   </>)
 }

@@ -5,8 +5,8 @@ import styled from 'styled-components'
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import MinclaHead from './pages/components/common/MinclaHead'
-import MinclaBody from './pages/components/common/MinclaBody'
+import MinclaHead from './containers/MinclaHead'
+import MinclaBody from './containers/MinclaBody'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -157,27 +157,3 @@ const useViewTreeStyles = makeStyles({
     marginBottom: '20px'
   }
 })
-
-const LogImg = styled.img`
-  margin: auto
-`
-
-const HomeIcon = styled.div`
-  margin-top: -100px;
-  border-radius: 25px;
-  width: 34px;
-  height: 34px;
-  background: white;
-  border: 3px solid mediumseagreen;
-  text-align: center;
-  display: -webkit-inline-box;
-  -webkit-box-pack: center;
-  background-image: url(${props => props.icon});
-`
-
-const HomeSvg = styled(Home)`
-  color: mediumseagreen;
-  width: 30px;
-  height: 30px;
-  align-item: center;
-`

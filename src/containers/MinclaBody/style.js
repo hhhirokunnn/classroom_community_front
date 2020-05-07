@@ -12,6 +12,6 @@ export const StyledBody = styled.div`
 `
 
 export const LeftContent = styled.div`
-  width: 16%;
+  width: 18%;
   margin-left: 50px;
 `
