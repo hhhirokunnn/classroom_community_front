@@ -4,6 +4,8 @@ import {
   Wrap,
   ContentTitle
 }  from '../TopMainContent/style'
+import Pagination from '@material-ui/lab/Pagination';
+
 import { fetchArticles } from '../../../../services/MinclaClient'
 const ActivityContent = () => {
 
@@ -18,6 +20,11 @@ const ActivityContent = () => {
   return (
     <Wrap>
       {JSON.stringify(fetchedArticles)}
+      <div style={{ }}>
+        <div>
+          <Pagination count={fetchedArticles.length / 10 + 1} />
+        </div>
+      </div>    
     </Wrap>)
 }
 

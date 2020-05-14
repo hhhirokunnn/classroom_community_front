@@ -33,8 +33,13 @@ const SignUpContent = ({ }) => {
   }, [])
 
   const validateUserName = () => {
-    userName.length > 0 ? setUserNameError('') : setUserNameError('入力してください')
-    userName.length < 31 ? setUserNameError('') : setUserNameError('30文字以内にしてください')
+    if(userName.length < 1) {
+      setUserNameError('入力してください')
+    } else if(userName.length > 30) {
+      setUserNameError('30文字以内にしてください')
+    } else {
+      setUserNameError('')
+    }
   }
 
   const inputUserName = _inputtingUserName => {

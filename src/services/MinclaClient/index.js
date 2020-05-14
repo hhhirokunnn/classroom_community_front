@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const minclaAuthedBaseAxios = () => axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
   responseType: 'json',
   headers: {
     'Authorization': localStorage.getItem('token')
@@ -9,7 +9,7 @@ const minclaAuthedBaseAxios = () => axios.create({
 });
 
 const minclaBaseAxios = () => axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
   responseType: 'json'
 });
 
@@ -35,6 +35,7 @@ export const logout = () => {
       alert(res.data.message)
       window.location.reload()})
     .catch(e => {
+      localStorage.removeItem('token')
       e.response ? alert(e.response.data.message) : alert(e)})
 }
 
@@ -64,22 +65,18 @@ export const signUp = (userName, mail, password) => {
       e.response ? alert(e.response.data.message) : alert(e)})
 }
 
-export const fetchArticles = () => minclaBaseAxios().get('/articles')
+export const fetchArticles = (from = 0) => minclaBaseAxios().get(`/articles?from=${from}&size=20`)
 
-export const createArticle = ({file, title, summary, userId }) => {
+export const createArticle = ({title, summary, estimatedTime, memberUnit, youtubeLink, image}) => {
 
   const formData = new FormData()
-  // const file = fileInput.current.files[0]
-  formData.append('image', file)
-  formData.append('title', 'aaa')
-  formData.append('summary', 'aaa')
-  formData.append('userId', 26)
-  // formData.append('article', {
-  //   title: "aaa",
-  //   summary: "aaa",
-  //   userId: 21,
-  //   image: file
-  // })
+  
+  formData.append('title', title)
+  formData.append('summary', summary)
+  if(image) formData.append('image', image)
+  if(estimatedTime) formData.append('estimatedTime', estimatedTime)
+  if(memberUnit) formData.append('memberUnit', memberUnit)
+  if(youtubeLink) formData.append('youtubeLink', youtubeLink)
   
   minclaAuthedBaseAxios().post('/articles', formData)
   .then(res => {
