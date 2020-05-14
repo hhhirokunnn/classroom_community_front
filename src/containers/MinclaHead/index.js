@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 // import topTitle from 'src/assets/images/top_title.png'
-import topTitle from '../../assets/images/top_title.png'
+import topTitle from '../../assets/images/top-title.png'
 import PageNavigation from './PageNavigation'
 import Box from '@material-ui/core/Box';
 
@@ -20,7 +20,7 @@ const MinclaHead = () => {
           src={topTitle}
           width={{ xs: '300px', sm: '370px', md: "370px", lg: "370px" }}/>
       </Box>
-      <div style={{ backgroundColor: 'mediumseagreen' }}>
+      <div style={{ backgroundColor: 'yellowgreen' }}>
         <Box
           paddingBottom={{ xs: '0px', sm: '10px', md: "10px", lg: "10px" }}
           position='relative'

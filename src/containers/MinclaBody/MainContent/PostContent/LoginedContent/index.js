@@ -8,8 +8,8 @@ import RegisterStepper from './RegisterStepper'
 import RegisterStepperButton from './RegisterStepperButton'
 // import FormContent from './FormContent'
 import ActivityForm from "./FormContent/ActivityForm"
-import StepForm from "./FormContent/StepForm"
-import PreparationForm from "./FormContent/PreparationForm"
+import StepsForm from "./FormContent/StepsForm"
+import PreparationsForm from "./FormContent/PreparationsForm"
 
 const LonginedContent = ({  }) => {
 
@@ -22,17 +22,15 @@ const LonginedContent = ({  }) => {
       youtubeLink: null,
       image: null
     })
-    const [preparationParameter, setPreparationParameter] = useState([
-      {}
-    ])
-    const [stepParameter, setStepParameter] = useState([
-      {}
-    ])
+    const [preparationsParameter, setPreparationsParameter] = useState([])
+    const [stepsParameter, setStepsParameter] = useState([])
 
-    const [isInvalidForm, setIsInvalidForm] = useState(true)
+    const [isInvalidActivityForm, setIsInvalidActivityForm] = useState(true)
+    const [isInvalidPreparationForm, setIsInvalidPreparationForm] = useState(false)
+    const [isInvalidStepForm, setIsInvalidStepForm] = useState(false)
 
     const send = () => {
-      createArticle(articleParameter)
+      createArticle(articleParameter).then(res => res.data)
     }
 
     return (<>
@@ -40,24 +38,27 @@ const LonginedContent = ({  }) => {
       {registerStep === 0 &&  
         <ActivityForm 
           articleParameter={articleParameter} 
-          setArticleParameter={setArticleParameter}/>}
+          setArticleParameter={setArticleParameter}
+          setIsInvalidActivityForm={setIsInvalidActivityForm}/>}
       {registerStep === 1 &&
-        <PreparationForm 
-          preparationParameter={preparationParameter} 
-          setPreparationParameter={setPreparationParameter}/>}
+        <PreparationsForm 
+          preparationsParameter={preparationsParameter} 
+          setPreparationsParameter={setPreparationsParameter}
+          isInvalidPreparationForm={isInvalidPreparationForm}
+          setIsInvalidPreparationForm={setIsInvalidPreparationForm}/>}
       {registerStep === 2 &&
-        <StepForm 
-          stepParameter={stepParameter} 
-          setStepParameter={setStepParameter}/>}
+        <StepsForm 
+          stepsParameter={stepsParameter} 
+          setStepsParameter={setStepsParameter}
+          isInvalidStepForm={isInvalidStepForm}
+          setIsInvalidStepForm={setIsInvalidStepForm}/>}
       <RegisterStepperButton 
         registerStep={registerStep} 
         setRegisterStep={setRegisterStep}
-        isInvalidForm={isInvalidForm} />
+        isInvalidActivityForm={isInvalidActivityForm}
+        isInvalidPreparationForm={isInvalidPreparationForm}
+        isInvalidStepForm={isInvalidStepForm} />
     </>)
-    
-  return (<>
-    
-  </>);
 }
 
 export default LonginedContent

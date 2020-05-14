@@ -5,7 +5,7 @@ import {
   ContentDescription,
   ContentImg
 }  from '../style'
-import sample from '../../../../../assets/images/sample.png'
+import kids from '../../../../../assets/images/kids.png'
 import Box from '@material-ui/core/Box';
 
 const Preparation = () => {
@@ -22,10 +22,10 @@ const Preparation = () => {
       <div>
       <Box
         component='img'
-        width={{ xs: '280px', sm: '500px', md: "600px", lg: "600px" }}
-        height={{ xs: '180px', sm: '280px', md: "300px", lg: "300px" }}
+        width={{ xs: '350px', sm: '700px', md: "600px", lg: "600px" }}
+        height={{ xs: '130px', sm: '250px', md: "200px", lg: "200px" }}
         margin='auto'
-        src={sample}/>
+        src={kids}/>
       </div>
     </div>
   </Wrap>)

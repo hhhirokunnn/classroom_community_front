@@ -5,7 +5,7 @@ export const Wrap = styled.div`
 `
 
 export const NotCompleteStep = styled.div`
-  background-color: lightgreen;
+  background-color: lightgray;
   color: white;
   width: 20px; 
   height: 20px;
@@ -20,7 +20,8 @@ export const StepContent = styled.div`
 `
 
 export const CompleteStep = styled.div`
-  background-color: mediumseagreen;
+  // background-color: salmon;
+  background-color: yellowgreen;
   color: white;
   width: 20px; 
   height: 20px;
@@ -37,7 +38,7 @@ export const StepBar = styled.div`
 
 export const HorizenBar = styled.hr`
   display: flex;
-  background-color: mediumseagreen;
+  background-color: lightgray;
   margin-left: 10px;
   margin-right: 10px;
   width: 65px;
@@ -49,7 +50,8 @@ export const HorizenBar = styled.hr`
 
 export const StepTitle = styled.div`
   font-weight: bold;
-  color: ${props => (props.selected ? 'mediumseagreen' : 'lightgreen')};
+  // color: ${props => (props.selected ? 'salmon' : 'lightgray')};
+  color: ${props => (props.selected ? 'yellowgreen' : 'lightgray')};
   text-align: center;
   div {
     display: block;

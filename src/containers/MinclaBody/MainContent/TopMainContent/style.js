@@ -19,11 +19,11 @@ export const ContentTitle = styled.div`
 
 export const ContentDescription = styled.div`
   font-size: 20px;
-  margin-bottom: 24px;
+  // margin-bottom: 24px;
 `
 
 export const UserAddSvg = styled(UserAdd)`
-  color: mediumseagreen;
+  color: yellowgreen;
   width: 30px;
   height: 30px;
   align-item: center;

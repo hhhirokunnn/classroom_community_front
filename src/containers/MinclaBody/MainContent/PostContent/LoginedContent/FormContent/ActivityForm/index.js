@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import MinclaTextField from "../MinclaTextField"
 import MinclaLargeTextField from "../MinclaLargeTextField"
@@ -11,12 +11,20 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MinclaColorButton from '../MinclaColorButton'
 
-const ActivityForm = ({ articleParameter, setArticleParameter }) => {
+const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActivityForm }) => {
   
   const [fileName, setFileName] = useState("")
   const [uploadType, setUploadType] = useState("image")
   
   const fileInput = useRef(null)
+
+  useEffect(()=>{
+    if(validateTitle().length > 0 || validateSummary().length > 0 || validateYoutubeLink().length > 0) {
+      setIsInvalidActivityForm(true)
+    } else {
+      setIsInvalidActivityForm(false)
+    }
+  }, [articleParameter.title, articleParameter.summary, articleParameter.youtubeLink])
 
   const changeTitle = title => {
     setArticleParameter({...articleParameter , title})
@@ -133,20 +141,20 @@ const ActivityForm = ({ articleParameter, setArticleParameter }) => {
       </Box>
       <Box display="block" width={'400px'} marginBottom={'20px'} textAlign='left'>
         <FormControl component="fieldset">
-          <FormLabel component="legend">画像またはyoutubeURLのどちらかを選択</FormLabel>
+          <FormLabel component="legend">画像またはyoutubeURLのどちらかのみ選択可能</FormLabel>
           <RadioGroup row defaultValue="image">
             <FormControlLabel
               value="image"
               control={<Radio color="primary" />}
               label="画像"
-              labelPlacement="top"
+              labelPlacement="bottom"
               onChange={e => selectedUploadType(e.target.value)}
             />
             <FormControlLabel
               value="youtube"
               control={<Radio color="primary" />}
               label="youtubeURL"
-              labelPlacement="top"
+              labelPlacement="bottom"
               onChange={e => selectedUploadType(e.target.value)}
             />
           </RadioGroup>

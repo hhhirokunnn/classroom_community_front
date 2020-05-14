@@ -1,13 +1,13 @@
 import Button from '@material-ui/core/Button';
-import { green } from '@material-ui/core/colors';
+import { lime } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
 
 const MinclaColorButton = withStyles((theme) => ({
   root: {
-    color: theme.palette.getContrastText(green[500]),
-    backgroundColor: green[500],
+    color: theme.palette.getContrastText("#7EC101"),
+    backgroundColor: "#7EC101",
     '&:hover': {
-      backgroundColor: green[700],
+      backgroundColor: "#639703",
     },
   },
 }))(Button);

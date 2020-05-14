@@ -16,8 +16,8 @@ export const LoginButtonBox = styled.div`
 `
 
 export const StyledLoginButton = styled.div`
-  color: ${props => props.isFocussed ? 'salmon' : 'mediumseagreen' };
-  ${props => props.isFocussed && 'border: 3px solid salmon'};
+  color: ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };
+  ${props => props.isFocussed && 'border: 3px solid mediumseagreen'};
   // padding: ${props => props.isFocussed ? '5px 12px' : '5px 10px' };
   padding: 5px 10px;
   font-weight: bold;
@@ -28,42 +28,42 @@ export const StyledLoginButton = styled.div`
 `
 
 export const HomeSvg = styled(Home)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;
 `
 
 export const GameSvg = styled(Game)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;
 `
 
 export const MailSendSvg = styled(MailSend)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;
 `
 
 export const QuestionnaireSvg = styled(Questionnaire)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;
 `
 
 export const LoginSvg = styled(Login)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;
 `
 
 export const LogoutSvg = styled(LogOut)`
-  color: mediumseagreen;
+  color:  ${props => props.isFocussed ? 'mediumseagreen' : 'yellowgreen' };;
   width: 30px;
   height: 30px;
   align-item: center;

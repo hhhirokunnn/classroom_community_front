@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
-import MinclaTextField from "../MinclaTextField"
-import MinclaLargeTextField from "../MinclaLargeTextField"
+import MinclaTextField from "../../MinclaTextField"
+import MinclaLargeTextField from "../../MinclaLargeTextField"
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Radio from '@material-ui/core/Radio';
@@ -9,19 +9,42 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import MinclaColorButton from '../MinclaColorButton'
+import MinclaColorButton from '../../MinclaColorButton'
 
-const PreparationForm = ({ preparationParameter, setPreparationParameter }) => {
+const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparationsParameter }) => {
+
+  const [preparationParameter, setPreparationParameter] = useState({
+    preparation: "",
+    item: null,
+    itemUnit: null,
+    url: null
+  })
   
   const changePreparation = preparation => {
     setPreparationParameter({...preparationParameter , preparation})
   }
 
+  useEffect(()=>{
+    const me = preparationsParameter.filter(p => p.formId === preparationFormId)
+    me.length > 0 && setPreparationParameter(me[0].param)
+  },[])
+
+  useEffect(()=>{
+    const newParams = preparationsParameter.map(p => {
+      if(p.formId === preparationFormId) {
+        return { formId: preparationFormId, param: preparationParameter }
+      } else if(p.formId !== preparationFormId) {
+        return p
+      }
+    })
+    setPreparationsParameter(newParams)
+  },[preparationParameter])
+
   const validatePreparation = () => {
     if(preparationParameter.preparation.length < 1) {
       return "入力してください"
-    } else if(preparationParameter.preparation.length > 20) {
-      return "20文字以内で入力してください"
+    } else if(preparationParameter.preparation.length > 100) {
+      return "100文字以内で入力してください"
     }
     return ""
   }
@@ -31,10 +54,8 @@ const PreparationForm = ({ preparationParameter, setPreparationParameter }) => {
   }
 
   const validateItem = () => {
-    if(preparationParameter.item.length < 1) {
-      return "入力してください"
-    } else if(preparationParameter.item.length > 500) {
-      return "500文字以内で入力してください"
+    if(preparationParameter.item && preparationParameter.item.length > 50) {
+      return "50文字以内で入力してください"
     }
     return ""
   }
@@ -54,7 +75,7 @@ const PreparationForm = ({ preparationParameter, setPreparationParameter }) => {
         targetLabel={"じゅんび内容*"} 
         targetValue={preparationParameter.preparation} 
         inputTarget={changePreparation} 
-        // validateValue={validatePreparation}
+        validateValue={validatePreparation}
         marginBottom={"20px"}
         rows={3}
         width={"400px"}
@@ -63,6 +84,7 @@ const PreparationForm = ({ preparationParameter, setPreparationParameter }) => {
         targetLabel={"物品名"} 
         targetValue={preparationParameter.item} 
         inputTarget={changeItem}
+        validateValue={validateItem}
         width={"300px"}
         marginBottom={"20px"}
       />
