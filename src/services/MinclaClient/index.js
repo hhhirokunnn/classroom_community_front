@@ -1,15 +1,27 @@
 import axios from 'axios';
 
-const minclaAuthedBaseAxios = () => axios.create({
-  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+// const minclaAuthedBaseAxios = () => axios.create({
+//   baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+//   responseType: 'json',
+//   headers: {
+//     'Authorization': localStorage.getItem('token')
+//   }
+// });
+export const minclaAuthedBaseAxios = () => axios.create({
+  baseURL: 'http://localhost:8080/api',
   responseType: 'json',
   headers: {
     'Authorization': localStorage.getItem('token')
   }
 });
 
+// const minclaBaseAxios = () => axios.create({
+//   baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+//   responseType: 'json'
+// });
+
 const minclaBaseAxios = () => axios.create({
-  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+  baseURL: 'http://localhost:8080/api',
   responseType: 'json'
 });
 

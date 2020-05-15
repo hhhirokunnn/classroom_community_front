@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import MinclaLargeTextField from "../../MinclaLargeTextField"
-import MinclaColorButton from '../../MinclaColorButton'
+import MinclaLargeTextField from "../../../../../../../../components/MinclaLargeTextField"
+import MinclaColorButton from '../../../../../../../../components/MinclaColorButton'
+import Box from '@material-ui/core/Box';
 
 const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
 
@@ -38,8 +39,8 @@ const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
   const validateDescription = () => {
     if(stepParameter.description.length < 1) {
       return "入力してください"
-    } else if(stepParameter.description.length > 100) {
-      return "100文字以内で入力してください"
+    } else if(stepParameter.description.length > 500) {
+      return "500文字以内で入力してください"
     }
     return ""
   }
@@ -53,7 +54,9 @@ const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
   }
   
   return (<>
-    <div style={{ marginLeft: "20%"}}>
+    <Box 
+      component="div"
+      marginLeft={{ xs: '10px', sm: '20%', md: "20%", lg: "20%" }}>
       <MinclaLargeTextField
         targetLabel={"ステップ"} 
         targetValue={stepParameter.description} 
@@ -61,7 +64,7 @@ const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
         validateValue={validateDescription}
         marginBottom={"20px"}
         rows={3}
-        width={"400px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
       />
       <div style={{ textAlign: 'left', margin: '30px 0' }}>
           <MinclaColorButton component="label">
@@ -73,11 +76,12 @@ const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
               ref={fileInput}
               onChange={e => uploadFile(e)}
               type="file"
+              accept="image/*"
             />
           </MinclaColorButton>
           <div>{fileName && `ファイル名：${fileName}`}</div>
         </div>
-    </div>
+    </Box>
   </>)
 }
 

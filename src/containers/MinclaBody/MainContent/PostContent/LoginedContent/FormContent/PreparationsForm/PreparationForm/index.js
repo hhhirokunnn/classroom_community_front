@@ -1,15 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import MinclaTextField from "../../MinclaTextField"
-import MinclaLargeTextField from "../../MinclaLargeTextField"
+import MinclaTextField from "../../../../../../../../components/MinclaTextField"
+import MinclaLargeTextField from "../../../../../../../../components/MinclaLargeTextField"
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Radio from '@material-ui/core/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import MinclaColorButton from '../../MinclaColorButton'
 
 const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparationsParameter }) => {
 
@@ -43,8 +37,8 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
   const validatePreparation = () => {
     if(preparationParameter.preparation.length < 1) {
       return "入力してください"
-    } else if(preparationParameter.preparation.length > 100) {
-      return "100文字以内で入力してください"
+    } else if(preparationParameter.preparation.length > 500) {
+      return "500文字以内で入力してください"
     }
     return ""
   }
@@ -54,8 +48,8 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
   }
 
   const validateItem = () => {
-    if(preparationParameter.item && preparationParameter.item.length > 50) {
-      return "50文字以内で入力してください"
+    if(preparationParameter.item && preparationParameter.item.length > 100) {
+      return "100文字以内で入力してください"
     }
     return ""
   }
@@ -70,7 +64,9 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
   }
   
   return (<>
-    <div style={{ marginLeft: "20%"}}>
+    <Box 
+      component="div"
+      marginLeft={{ xs: '10px', sm: '20%', md: "20%", lg: "20%" }}>
       <MinclaLargeTextField
         targetLabel={"じゅんび内容*"} 
         targetValue={preparationParameter.preparation} 
@@ -78,17 +74,19 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
         validateValue={validatePreparation}
         marginBottom={"20px"}
         rows={3}
-        width={"400px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
       />
       <MinclaTextField 
         targetLabel={"物品名"} 
         targetValue={preparationParameter.item} 
         inputTarget={changeItem}
         validateValue={validateItem}
-        width={"300px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
         marginBottom={"20px"}
       />
-      <Box display="block" width={'400px'} marginBottom={'20px'}>
+      <Box display="block" 
+      width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
+      marginBottom={'20px'}>
         <div style={{ display: 'inline-flex', float: 'left' }}>
             <MinclaTextField 
               targetLabel={"物品数"} 
@@ -107,10 +105,10 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
         targetLabel={"物品のページ(URL)"} 
         targetValue={preparationParameter.url} 
         inputTarget={changeUrl} 
-        width={"400px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
         marginBottom={"20px"}
       />
-    </div>
+    </Box>
   </>)
 }
 

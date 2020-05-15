@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import MinclaTextField from "../MinclaTextField"
-import MinclaLargeTextField from "../MinclaLargeTextField"
+import MinclaTextField from "../../../../../../../components/MinclaTextField"
+import MinclaLargeTextField from "../../../../../../../components/MinclaLargeTextField"
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Radio from '@material-ui/core/Radio';
@@ -9,7 +9,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import MinclaColorButton from '../MinclaColorButton'
+import MinclaColorButton from '../../../../../../../components/MinclaColorButton'
 
 const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActivityForm }) => {
   
@@ -33,8 +33,8 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
   const validateTitle = () => {
     if(articleParameter.title.length < 1) {
       return "入力してください"
-    } else if(articleParameter.title.length > 20) {
-      return "20文字以内で入力してください"
+    } else if(articleParameter.title.length > 300) {
+      return "300文字以内で入力してください"
     }
     return ""
   }
@@ -94,13 +94,15 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
   }
   
   return (<>
-    <div style={{ marginLeft: "20%"}}>
+    <Box 
+      component="div"
+      marginLeft={{ xs: '10px', sm: '18%', md: "15%", lg: "20%" }}>
       <MinclaTextField 
         targetLabel={"タイトル*"} 
         targetValue={articleParameter.title} 
         inputTarget={changeTitle} 
         validateValue={validateTitle}
-        width={"300px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
         marginBottom={"20px"}
       />
       <MinclaLargeTextField
@@ -109,39 +111,52 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
         inputTarget={changeSummary} 
         validateValue={validateSummary}
         rows={6}
-        width={"400px"}
+        width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }}
         marginBottom={"20px"}
       />
-      <Box display="block" width={'400px'} marginBottom={'20px'}>
+      <Box display="block" 
+      width={{ 
+        lg: '500px', 
+        md: '450px', 
+        sm: "350px", 
+        xs: "300px" }} 
+      marginBottom={'20px'}>
         <div style={{ display: 'inline-flex', float: 'left' }}>
             <MinclaTextField 
               targetLabel={"目安時間"} 
               targetValue={articleParameter.estimatedTime} 
               inputTarget={changeEstimatedTime} 
-              width={"70px"}
+              width={{ xs: '80px', sm: '80px', md: "80px", lg: "80px" }} 
               type="number"
               marginBottom={"20px"}
               InputProps={{
                 endAdornment: <InputAdornment position="end">分</InputAdornment>,
               }}
             />
-          <div style={{ marginLeft: '30px' }}>
+          <Box 
+            marginLeft={{ 
+              lg: '40px', 
+              md: '40px', 
+              sm: "40px", 
+              xs: "40px" }} >
             <MinclaTextField 
               targetLabel={"目安人数"} 
               targetValue={articleParameter.memberUnit} 
               inputTarget={changeMemberUnit} 
-              width={"70px"}
+              width={{ xs: '80px', sm: '80px', md: "80px", lg: "80px" }} 
               marginBottom={"20px"}
               type="number"
               InputProps={{
                 endAdornment: <InputAdornment position="end">人</InputAdornment>,
               }}/>
-          </div>
+          </Box>
         </div>
       </Box>
-      <Box display="block" width={'400px'} marginBottom={'20px'} textAlign='left'>
+      <Box display="block" 
+           width={{ xs: '350px', sm: '350px', md: "500px", lg: "400px" }} 
+           marginBottom={'20px'} textAlign='left'>
         <FormControl component="fieldset">
-          <FormLabel component="legend">画像またはyoutubeURLのどちらかのみ選択可能</FormLabel>
+          <FormLabel component="legend">画像またはyoutubeURLどちらかのみ選択可能</FormLabel>
           <RadioGroup row defaultValue="image">
             <FormControlLabel
               value="image"
@@ -171,6 +186,7 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
               ref={fileInput}
               onChange={e => uploadFile(e)}
               type="file"
+              accept="image/*"
             />
           </MinclaColorButton>
           <div>{fileName && `ファイル名：${fileName}`}</div>
@@ -182,11 +198,11 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
           targetValue={articleParameter.youtubeLink} 
           inputTarget={changeYoutubeLink} 
           validateValue={validateYoutubeLink}
-          width={"400px"}
+          width={{ xs: '350px', sm: '450px', md: "500px", lg: "400px" }} 
           marginBottom={"20px"}
         />
       )}
-    </div>
+    </Box>
   </>)
 }
 

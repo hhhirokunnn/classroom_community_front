@@ -11,9 +11,9 @@ const PreparationsForm = ({ preparationsParameter, setPreparationsParameter, isI
   useEffect(()=>{
     if(preparationsParameter.some(p => p.param.preparation < 1)) {
       setIsInvalidPreparationForm(true)
-    } else if(preparationsParameter.some(p => p.param.preparation > 100)) {
+    } else if(preparationsParameter.some(p => p.param.preparation > 500)) {
       setIsInvalidPreparationForm(true)
-    } else if(preparationsParameter.some(p => p.param.item > 50)) {
+    } else if(preparationsParameter.some(p => p.param.item > 100)) {
       setIsInvalidPreparationForm(true)
     } else {
       setIsInvalidPreparationForm(false)

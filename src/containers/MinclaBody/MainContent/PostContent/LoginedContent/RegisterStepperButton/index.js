@@ -19,7 +19,8 @@ const RegisterStepperButton = ({
   setRegisterStep, 
   isInvalidActivityForm,
   isInvalidPreparationForm,
-  isInvalidStepForm
+  isInvalidStepForm,
+  sendRequest
  }) => {
 
   const registerStepUp = () => setRegisterStep(registerStep + 1)
@@ -69,7 +70,7 @@ const RegisterStepperButton = ({
             variant="contained" 
             color="primary" 
             style={{ color: "white", fontWeight: 'bold' }} 
-            onClick={() =>alert('complete')}>とうろく</ColorButton>}
+            onClick={() => sendRequest()}>とうろく</ColorButton>}
     </>)
   }
   

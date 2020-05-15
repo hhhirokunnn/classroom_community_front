@@ -11,7 +11,7 @@ const StepsForm = ({ stepsParameter, setStepsParameter, isInvalidStepForm, setIs
   useEffect(()=>{
     if(stepsParameter.some(p => p.param.description < 1)) {
       setIsInvalidStepForm(true)
-    } else if(stepsParameter.some(p => p.param.description > 100)) {
+    } else if(stepsParameter.some(p => p.param.description > 500)) {
       setIsInvalidStepForm(true)
     } else {
       setIsInvalidStepForm(false)

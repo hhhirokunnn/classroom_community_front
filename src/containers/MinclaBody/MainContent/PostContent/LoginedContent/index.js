@@ -10,6 +10,7 @@ import RegisterStepperButton from './RegisterStepperButton'
 import ActivityForm from "./FormContent/ActivityForm"
 import StepsForm from "./FormContent/StepsForm"
 import PreparationsForm from "./FormContent/PreparationsForm"
+import { minclaAuthedBaseAxios } from "../../../../../services/MinclaClient"
 
 const LonginedContent = ({  }) => {
 
@@ -29,8 +30,74 @@ const LonginedContent = ({  }) => {
     const [isInvalidPreparationForm, setIsInvalidPreparationForm] = useState(false)
     const [isInvalidStepForm, setIsInvalidStepForm] = useState(false)
 
-    const send = () => {
-      createArticle(articleParameter).then(res => res.data)
+    const createArticle = ({title, summary, estimatedTime, memberUnit, youtubeLink, image}) => {
+
+      const formData = new FormData()
+      
+      formData.append('title', title)
+      formData.append('summary', summary)
+      if(image) formData.append('image', image)
+      if(estimatedTime) formData.append('estimatedTime', estimatedTime)
+      if(memberUnit) formData.append('memberUnit', memberUnit)
+      if(youtubeLink) formData.append('youtubeLink', youtubeLink)
+      
+      return minclaAuthedBaseAxios().post('/articles', formData)
+    }
+
+    const createPreparation = ({preparation, item, itemUnit, url, articleId}) => {
+      console.log("{preparation, item, itemUnit, url, articleId}")
+      console.log(preparation)
+      console.log(articleId)
+      minclaAuthedBaseAxios().post('/materials', {
+        preparation,
+        item,
+        itemUnit,
+        url,
+        articleId
+      }).catch(e => {
+        e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
+      })
+    }
+
+    const createStep = ({description, image, articleId}) => {
+      const formData = new FormData()
+      
+      formData.append('articleId', articleId)
+      formData.append('description', description)
+      if(image) formData.append('image', image)
+      console.log("formData")
+      console.log(formData)
+      
+      minclaAuthedBaseAxios().post('/steps', formData).catch(e => {
+        e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
+      })
+    }
+
+    const sendRequest = () => {
+      createArticle(articleParameter).then(res => {
+        console.log(res)
+        console.log(res.data)
+        console.log(res.data.content)
+        console.log(res.data.content.id)
+        const articleId = res.data.content.id
+        
+        preparationsParameter.forEach(p => {
+          console.log("preparationsParameter")
+          console.log(p.param)
+          console.log(p.param.preparation)
+        })
+        preparationsParameter.forEach(p => {
+          createPreparation({...p.param, articleId})
+        })
+        console.log("stepsParameter")
+        console.log(stepsParameter)
+        stepsParameter.forEach(p => {
+          createStep({...p.param, articleId})
+        })
+        alert("作成が完了しました")
+        }).catch(e => {
+          e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
+      })
     }
 
     return (<>
@@ -57,7 +124,8 @@ const LonginedContent = ({  }) => {
         setRegisterStep={setRegisterStep}
         isInvalidActivityForm={isInvalidActivityForm}
         isInvalidPreparationForm={isInvalidPreparationForm}
-        isInvalidStepForm={isInvalidStepForm} />
+        isInvalidStepForm={isInvalidStepForm}
+        sendRequest={sendRequest}/>
     </>)
 }
 

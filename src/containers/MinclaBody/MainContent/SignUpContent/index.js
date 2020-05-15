@@ -81,7 +81,9 @@ const SignUpContent = ({ }) => {
           ユーザ登録
         </ContentTitle>
         <form noValidate autoComplete="off">
-          <Box display="block" marginBottom={3} width='300px' marginLeft='34%'>
+          <Box display="block" marginBottom={3} 
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
             {userNameError.length > 0 ? 
               <TextField
                 error
@@ -100,7 +102,9 @@ const SignUpContent = ({ }) => {
                 fullWidth={true}
               />}
           </Box>
-          <Box display="block" marginBottom={3} width='300px' marginLeft='34%'>
+          <Box display="block" marginBottom={3}
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
             {mailError.length > 0 ? 
               <TextField
                 error
@@ -119,7 +123,9 @@ const SignUpContent = ({ }) => {
                 fullWidth={true}
               />}
           </Box>
-          <Box display="block" marginBottom={5} width='300px' marginLeft='34%'>
+          <Box display="block" marginBottom={5} 
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
             {passwordError.length > 0 ? 
               <TextField
                 error
