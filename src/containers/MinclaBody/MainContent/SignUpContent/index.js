@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { signUp } from '../../../../services/MinclaClient'
+import MinclaTextField from "../../../../components/MinclaTextField"
 
 // import { 
 //   StyledLoginForm
@@ -19,14 +20,11 @@ const SignUpContent = ({ }) => {
   const [userName, setUserName] = useState('')
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
-  const [userNameError, setUserNameError] = useState('')
-  const [mailError, setMailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
   const [disabledButton, setDisabledButton] = useState(true)
 
   useEffect(()=>{
     validateButton()
-  }, [userNameError, mailError, passwordError])
+  }, [userName, mail, password])
 
   useEffect(()=>{
     setDisabledButton(true)
@@ -34,12 +32,10 @@ const SignUpContent = ({ }) => {
 
   const validateUserName = () => {
     if(userName.length < 1) {
-      setUserNameError('入力してください')
+      return '入力してください'
     } else if(userName.length > 30) {
-      setUserNameError('30文字以内にしてください')
-    } else {
-      setUserNameError('')
-    }
+      return '30文字以内にしてください'
+    } else { return '' }
   }
 
   const inputUserName = _inputtingUserName => {
@@ -48,8 +44,12 @@ const SignUpContent = ({ }) => {
   }
 
   const validateMail = () => {
-    mail.length > 0 ? setMailError('') : setMailError('入力してください')
-    mail.includes('@') ? setMailError('') : setMailError('アドレスの形式ではありません')
+    if(mail.length < 1) {
+      return '入力してください'
+    } else if(!mail.includes('@')) {
+      return 'アドレスの形式ではありません'
+    } 
+    return ""
   }
 
   const inputMail = _inputtingMail => {
@@ -58,7 +58,9 @@ const SignUpContent = ({ }) => {
   }
 
   const validatePassword = () => {
-    password.length > 0 ? setPasswordError('') : setPasswordError('入力してください')
+    if(password.length < 1) {
+      return '入力してください'
+    } else { return '' }
   }
 
   const inputPassword = _inputtingPassword => {
@@ -67,7 +69,7 @@ const SignUpContent = ({ }) => {
   }
 
   const validateButton = () => {
-    setDisabledButton(mailError.length > 0 || passwordError.length > 0)
+    setDisabledButton(validateUserName().length > 1 || validateMail().length > 1 || validatePassword().length > 1)
   }
 
   const requestSingUp = () => {
@@ -80,8 +82,44 @@ const SignUpContent = ({ }) => {
         <ContentTitle>
           ユーザ登録
         </ContentTitle>
-        <form noValidate autoComplete="off">
-          <Box display="block" marginBottom={3} 
+        <Box 
+          component="div"
+          marginTop='50px'
+          marginBottom='80px'
+          marginLeft={{ xs: '10px', sm: '20%', md: "16%", lg: "24%" }}
+          >
+          <MinclaTextField 
+            targetLabel={"なまえ"} 
+            targetValue={userName} 
+            inputTarget={inputUserName}
+            validateValue={validateUserName}
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "20%" }}
+            marginBottom={"20px"}
+          />
+          <Box marginBottom='50px' />
+          <MinclaTextField 
+            targetLabel={"メールアドレス"} 
+            targetValue={mail} 
+            inputTarget={inputMail}
+            validateValue={validateMail}
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "20%" }}
+            marginBottom={"20px"}
+          />
+          <Box marginBottom='50px' />
+          <MinclaTextField 
+            targetLabel={"パスワード"} 
+            targetValue={password} 
+            inputTarget={inputPassword}
+            validateValue={validatePassword}
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "20%" }}
+            marginBottom={"20px"}
+          />
+        </Box>
+        {/* <form noValidate autoComplete="off"> */}
+          {/* <Box display="block" marginBottom={3} 
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
             marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
             {userNameError.length > 0 ? 
@@ -101,8 +139,8 @@ const SignUpContent = ({ }) => {
                 onBlur={validateUserName}
                 fullWidth={true}
               />}
-          </Box>
-          <Box display="block" marginBottom={3}
+          </Box> */}
+          {/* <Box display="block" marginBottom={3}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
             marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
             {mailError.length > 0 ? 
@@ -143,8 +181,8 @@ const SignUpContent = ({ }) => {
                 onBlur={validatePassword}
                 fullWidth={true}
               />}
-          </Box>
-        </form>
+          </Box> */}
+        {/* </form> */}
         {disabledButton ? 
           <Button variant="contained" disabled>登録する</Button>
           : <Button variant="contained" onClick={requestSingUp}>登録する</Button>}

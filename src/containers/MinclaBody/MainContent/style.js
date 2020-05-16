@@ -5,4 +5,7 @@ export const Wrap = styled.div`
   background-color: white;
   padding-bottom: 20px;
   border: 3px solid gainsboro;
+  // text-align: center;
+  text-align: -webkit-center;
+  // margin: auto;
 `

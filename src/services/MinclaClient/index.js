@@ -1,29 +1,44 @@
 import axios from 'axios';
 
-// const minclaAuthedBaseAxios = () => axios.create({
-//   baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
-//   responseType: 'json',
-//   headers: {
-//     'Authorization': localStorage.getItem('token')
-//   }
-// });
 export const minclaAuthedBaseAxios = () => axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
   responseType: 'json',
   headers: {
     'Authorization': localStorage.getItem('token')
   }
 });
 
-// const minclaBaseAxios = () => axios.create({
-//   baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
-//   responseType: 'json'
+// export const minclaAuthedBaseAxios = () => axios.create({
+//   baseURL: 'https://api.min-cla.work/api',
+//   responseType: 'json',
+//   headers: {
+//     'Authorization': localStorage.getItem('token')
+//   }
+// });
+
+// export const minclaAuthedBaseAxios = () => axios.create({
+//   baseURL: 'http://localhost:8080/api',
+//   responseType: 'json',
+//   headers: {
+//     'Authorization': localStorage.getItem('token')
+//   }
 // });
 
 const minclaBaseAxios = () => axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
   responseType: 'json'
 });
+
+// const minclaBaseAxios = () => axios.create({
+//   baseURL: 'https://api.min-cla.work/api',
+//   responseType: 'json'
+// });
+
+
+// const minclaBaseAxios = () => axios.create({
+//   baseURL: 'http://localhost:8080/api',
+//   responseType: 'json'
+// });
 
 // const minclaJsonClient = () => minclaAuthedAxios().create({
 //   headers: {
@@ -77,7 +92,7 @@ export const signUp = (userName, mail, password) => {
       e.response ? alert(e.response.data.message) : alert(e)})
 }
 
-export const fetchArticles = (from = 0) => minclaBaseAxios().get(`/articles?from=${from}&size=20`)
+export const fetchArticles = (from = 0) => minclaBaseAxios().get(`/articles?from=${from}&size=10`)
 
 export const createArticle = ({title, summary, estimatedTime, memberUnit, youtubeLink, image}) => {
 
@@ -97,3 +112,21 @@ export const createArticle = ({title, summary, estimatedTime, memberUnit, youtub
     alert(e.response.data.message)
   })
 }
+
+export const addFavoriteArticle = (articleId) => {
+  
+  return minclaAuthedBaseAxios().post('/markedArticles', { articleId: articleId })
+}
+
+export const removeFavoriteArticle = (favArticleId) => {
+  
+  return minclaAuthedBaseAxios().delete(`markedArticles/${favArticleId}`)
+}
+
+export const fetchMarkedArticles = () => minclaAuthedBaseAxios().get(`/markedArticles?from=0&size=1000`)
+
+export const fetchArticleDetail = articleId => minclaAuthedBaseAxios().get(`/articles/${articleId}`)
+
+export const fetchComments = articleId => minclaAuthedBaseAxios().get(`/comments/${articleId}`)
+
+export const createComment = (articleId, content) => minclaAuthedBaseAxios().post(`/comments`, { articleId, content })

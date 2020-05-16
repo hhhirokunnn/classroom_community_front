@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { login } from '../../../../services/MinclaClient'
+import MinclaTextField from "../../../../components/MinclaTextField"
 
 // import { 
 //   StyledLoginForm
@@ -18,21 +19,23 @@ const LoginContent = ({ }) => {
 
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
-  const [mailError, setMailError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
   const [disabledButton, setDisabledButton] = useState(true)
 
   useEffect(()=>{
     validateButton()
-  }, [mailError, passwordError])
+  }, [mail, password])
 
   useEffect(()=>{
     setDisabledButton(true)
   }, [])
 
   const validateMail = () => {
-    mail.length > 0 ? setMailError('') : setMailError('入力してください')
-    mail.includes('@') ? setMailError('') : setMailError('アドレスの形式ではありません')
+    if(mail.length < 1) {
+      return '入力してください'
+    } else if(!mail.includes('@')) {
+      return 'アドレスの形式ではありません'
+    } 
+    return ""
   }
 
   const inputMail = _inputtingMail => {
@@ -41,7 +44,9 @@ const LoginContent = ({ }) => {
   }
 
   const validatePassword = () => {
-    password.length > 0 ? setPasswordError('') : setPasswordError('入力してください')
+    if(password.length < 1) {
+      return '入力してください'
+    } else { return '' }
   }
 
   const inputPassword = _inputtingPassword => {
@@ -50,7 +55,7 @@ const LoginContent = ({ }) => {
   }
 
   const validateButton = () => {
-    setDisabledButton(mailError.length > 0 || passwordError.length > 0)
+    setDisabledButton(validateMail().length > 0)
   }
 
   const requestLogin = () => {
@@ -63,51 +68,32 @@ const LoginContent = ({ }) => {
         <ContentTitle>
           ログイン
         </ContentTitle>
-        <form noValidate autoComplete="off">
-          <Box display="block" marginBottom={3} 
-          width='' 
-          width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
-          marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
-            {mailError.length > 0 ? 
-              <TextField
-                error
-                label="メールアドレス"
-                value={mail}
-                onChange={e => inputMail(e.target.value)}
-                onBlur={validateMail}
-                helperText={mailError}
-                fullWidth={true}
-              />: 
-              <TextField
-                label="メールアドレス"
-                value={mail}
-                onChange={e => inputMail(e.target.value)}
-                onBlur={validateMail}
-                fullWidth={true}
-              />}
-          </Box>
-          <Box display="block" marginBottom={5} 
+        <Box 
+          component="div"
+          marginTop='50px'
+          marginBottom='80px'
+          marginLeft={{ xs: '10px', sm: '20%', md: "16%", lg: "24%" }}
+          >
+          <MinclaTextField 
+            targetLabel={"メールアドレス"} 
+            targetValue={mail} 
+            inputTarget={inputMail}
+            validateValue={validateMail}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
-            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
-            {passwordError.length > 0 ? 
-              <TextField
-                error
-                label="パスワード"
-                value={password}
-                onChange={e => inputPassword(e.target.value)}
-                onBlur={validatePassword}
-                helperText={passwordError}
-                fullWidth={true}
-              />: 
-              <TextField
-                label="パスワード"
-                value={password}
-                onChange={e => inputPassword(e.target.value)}
-                onBlur={validatePassword}
-                fullWidth={true}
-              />}
-          </Box>
-        </form>
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "20%" }}
+            marginBottom={"20px"}
+          />
+          <Box marginBottom='50px' />
+          <MinclaTextField 
+            targetLabel={"パスワード"} 
+            targetValue={mail} 
+            inputTarget={inputPassword}
+            validateValue={validatePassword}
+            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
+            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "20%" }}
+            marginBottom={"20px"}
+          />
+        </Box>
         {disabledButton ? 
           <Button variant="contained" disabled>ログイン</Button>
           : <Button variant="contained" onClick={requestLogin}>ログイン</Button>}

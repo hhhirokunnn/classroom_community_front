@@ -4,17 +4,11 @@ import MinclaTextField from "../../../../../../../components/MinclaTextField"
 import MinclaLargeTextField from "../../../../../../../components/MinclaLargeTextField"
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Radio from '@material-ui/core/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import MinclaColorButton from '../../../../../../../components/MinclaColorButton'
 
 const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActivityForm }) => {
   
   const [fileName, setFileName] = useState("")
-  const [uploadType, setUploadType] = useState("image")
   
   const fileInput = useRef(null)
 
@@ -80,18 +74,6 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
       setArticleParameter({...articleParameter , image: file})
     }
   }
-
-  const selectedUploadType = selectedType => {
-    if(selectedType === "image") {
-      setArticleParameter({...articleParameter , youtubeLink: ""})
-      setUploadType(selectedType)
-    }
-    if(selectedType === "youtube") {
-      setFileName("")
-      setArticleParameter({...articleParameter , image: null})
-      setUploadType(selectedType)
-    }
-  }
   
   return (<>
     <Box 
@@ -115,12 +97,12 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
         marginBottom={"20px"}
       />
       <Box display="block" 
-      width={{ 
-        lg: '500px', 
-        md: '450px', 
-        sm: "350px", 
-        xs: "300px" }} 
-      marginBottom={'20px'}>
+        width={{ 
+          lg: '500px', 
+          md: '450px', 
+          sm: "350px", 
+          xs: "300px" }} 
+        marginBottom={'20px'}>
         <div style={{ display: 'inline-flex', float: 'left' }}>
             <MinclaTextField 
               targetLabel={"目安時間"} 
@@ -153,33 +135,16 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
         </div>
       </Box>
       <Box display="block" 
-           width={{ xs: '350px', sm: '350px', md: "500px", lg: "400px" }} 
-           marginBottom={'20px'} textAlign='left'>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">画像またはyoutubeURLどちらかのみ選択可能</FormLabel>
-          <RadioGroup row defaultValue="image">
-            <FormControlLabel
-              value="image"
-              control={<Radio color="primary" />}
-              label="画像"
-              labelPlacement="bottom"
-              onChange={e => selectedUploadType(e.target.value)}
-            />
-            <FormControlLabel
-              value="youtube"
-              control={<Radio color="primary" />}
-              label="youtubeURL"
-              labelPlacement="bottom"
-              onChange={e => selectedUploadType(e.target.value)}
-            />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-      {uploadType === 'image' && (
-        <div style={{ textAlign: 'left', margin: '30px 0' }}>
-          <MinclaColorButton component="label">
+        width={{ 
+          lg: '500px', 
+          md: '450px', 
+          sm: "350px", 
+          xs: "300px" }} 
+        marginBottom={'20px'}
+        textAlign='left'>
+        <MinclaColorButton component="label">
             <div style={{ color: 'white', fontWeight: 'bold' }}>
-              画像のアップロード
+              記事のアイコンのアップロード
             </div>
             <input
               style={{ display: 'none'}}
@@ -190,18 +155,15 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
             />
           </MinclaColorButton>
           <div>{fileName && `ファイル名：${fileName}`}</div>
-        </div>
-      )}
-      {uploadType === 'youtube' && (
-        <MinclaTextField 
-          targetLabel={"youtubeURL"} 
-          targetValue={articleParameter.youtubeLink} 
-          inputTarget={changeYoutubeLink} 
-          validateValue={validateYoutubeLink}
-          width={{ xs: '350px', sm: '450px', md: "500px", lg: "400px" }} 
-          marginBottom={"20px"}
-        />
-      )}
+      </Box>          
+      <MinclaTextField 
+        targetLabel={"youtubeURL"} 
+        targetValue={articleParameter.youtubeLink} 
+        inputTarget={changeYoutubeLink} 
+        validateValue={validateYoutubeLink}
+        width={{ xs: '350px', sm: '450px', md: "500px", lg: "400px" }} 
+        marginBottom={"20px"}
+      />
     </Box>
   </>)
 }
