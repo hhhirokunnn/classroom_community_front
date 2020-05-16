@@ -23,7 +23,7 @@ const PageSelectButton = ({ label, svgComponent, selfPath }) => {
   return (<>
     <Box 
       position='absolute'
-      top={{ xs: '7px', sm: '-16px', md: "-16px", lg: "-16px" }}
+      top={{ xs: '10px', sm: '-16px', md: "-16px", lg: "-16px" }}
       cursor='pointer'>  
     {/* <ButtonBox marginLeft={marginLeft}> */}
       {/* toppage icon box */}
