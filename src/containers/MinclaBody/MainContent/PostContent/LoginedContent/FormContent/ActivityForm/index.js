@@ -61,8 +61,8 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
   }
 
   const validateYoutubeLink = () => {
-    if(articleParameter.youtubeLink && !articleParameter.youtubeLink.includes("https://")) {
-      return "URLを正しく入力してください"
+    if(articleParameter.youtubeLink && !articleParameter.youtubeLink.includes("https://www.youtube.com/embed/")) {
+      return "https://www.youtube.com/embed/から始まるURLを入力してください"
     } 
     return ""
   }
@@ -88,7 +88,7 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
         marginBottom={"20px"}
       />
       <MinclaLargeTextField
-        targetLabel={"概要*"} 
+        targetLabel={"アクティビティの説明*"} 
         targetValue={articleParameter.summary} 
         inputTarget={changeSummary} 
         validateValue={validateSummary}
@@ -144,7 +144,7 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
         textAlign='left'>
         <MinclaColorButton component="label">
             <div style={{ color: 'white', fontWeight: 'bold' }}>
-              記事のアイコンのアップロード
+              記事のトップ画像アップロード
             </div>
             <input
               style={{ display: 'none'}}

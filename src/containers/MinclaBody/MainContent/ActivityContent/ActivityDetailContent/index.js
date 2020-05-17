@@ -142,16 +142,16 @@ const ActivityDetailContent = ({ articleId }) => {
               <div style={{ fontWeight: 'bold' }}>内容<br /></div>
               {preparation}
             </div>
-            {item && (<><div style={{ fontWeight: 'bold' }}>物品名：</div>{item}</>)}
-            {itemUnit && (<><div style={{ fontWeight: 'bold' }}>個数：</div>{itemUnit}</>)}
-            {url && (<><div style={{ fontWeight: 'bold' }}>URL；</div>{url}</>)}
+            {item && (<><div><span style={{ fontWeight: 'bold' }}>物品名：</span>{item}</div></>)}
+            {itemUnit && (<><div><span style={{ fontWeight: 'bold' }}>個数：</span>{itemUnit}</div></>)}
+            {url && (<><div><span style={{ fontWeight: 'bold' }}>URL；</span>{url}</div></>)}
           </CardContent>
         </Card>
       </Box>
     </>)
   }
 
-  const StepCard = ({ index, description, stepImage }) => {
+  const StepCard = ({ index, description, image }) => {
 
     return (<>
       <Box component='div' margin='8px'>
@@ -159,7 +159,7 @@ const ActivityDetailContent = ({ articleId }) => {
           <CardHeader title={`ステップその${index}`}/>
           <CardMedia
             className={classes.media}
-            image={stepImage ? stepImage : noimage}
+            image={image ? image : noimage}
             title={`step${index}: image`}
           />
           <CardContent>
@@ -188,6 +188,34 @@ const ActivityDetailContent = ({ articleId }) => {
         </Box>
       </ListItem>
     </>)
+  }
+
+  const YoutubeContent = () => {
+
+    return (
+      <Box component='div'>
+        <Card >
+          <CardHeader title={'動画の説明'}/>
+          <CardContent>
+            <Box 
+              component='div'
+              display={{ xs: 'none', sm: 'none', md: "none", lg: "block" }}>
+              <iframe width="600" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </Box>
+            <Box 
+              component='div'
+              display={{ xs: 'none', sm: 'block', md: "block", lg: "none" }}>
+              <iframe width="580" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </Box>
+            <Box 
+              component='div'
+              display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}>
+              <iframe width="300" height="200" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    )
   }
   
   const classes = useStyles();
@@ -224,9 +252,10 @@ const ActivityDetailContent = ({ articleId }) => {
             </IconButton>
             <div style={{ color: 'salmon', paddingTop: '4px' }}>: {fetchedArticleDetail.favoriteCount}人がお気に入り</div>
           </CardActions>
-          
         </Card>
       </Box>
+
+      <YoutubeContent />
 
       {fetchedArticleDetail.materials.map((m,i) => (<>
         <PreparationCard 

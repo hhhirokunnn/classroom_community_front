@@ -86,7 +86,7 @@ const LoginContent = ({ }) => {
           <Box marginBottom='50px' />
           <MinclaTextField 
             targetLabel={"パスワード"} 
-            targetValue={mail} 
+            targetValue={password} 
             inputTarget={inputPassword}
             validateValue={validatePassword}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
