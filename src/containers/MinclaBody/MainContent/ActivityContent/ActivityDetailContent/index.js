@@ -22,6 +22,9 @@ import { fetchMarkedArticles, addFavoriteArticle, removeFavoriteArticle, fetchCo
 import MinclaLargeTextField from '../../../../../components/MinclaLargeTextField'
 import MinclaColorButton from '../../../../../components/MinclaColorButton'
 
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 500,
@@ -29,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     padding: '20%',
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
   },
 }));
 
@@ -43,19 +50,15 @@ const ActivityDetailContent = ({ articleId }) => {
   const [fetchedFavoriteArticles, setFetchedFavoriteArticles] = useState([])
   const [fetchedComments, setFetchedComments] = useState([])
   const [inputComment, setInputComment] = useState('')
+  
+  const [openModal, setOpenModal] = useState(false)
 
   const changeComment = _comment => {
     setInputComment(_comment)
   }
 
   const sendComment = () => {
-    createComment(articleId, inputComment).then(r => {
-      setFetchedComments(fetchedComments.concat(r.data.content))
-      setInputComment('')
-    })
-      .catch(e => {
-        e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
-      })
+    setOpenModal(true)
   }
 
   useEffect(()=> {
@@ -242,7 +245,7 @@ const ActivityDetailContent = ({ articleId }) => {
         </Card>
       </Box>
 
-      <YoutubeContent />
+      {fetchedArticleDetail.article.youtubeLink && <YoutubeContent />}
 
       {fetchedArticleDetail.materials.map((m,i) => (<>
         <PreparationCard 
@@ -294,10 +297,44 @@ const ActivityDetailContent = ({ articleId }) => {
             variant="contained" 
             style={{ fontWeight: 'bold' }} 
             disabled>コメントを送信</Button>) }
-        
       </div>
+      {openModal && 
+        <ProgressModal 
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          articleId={articleId}
+          inputComment={inputComment}
+          fetchedComments={fetchedComments}
+          setFetchedComments={setFetchedComments}
+          setInputComment={setInputComment}
+        />}
     </Box>
   </>)
+}
+
+const ProgressModal = ({
+  openModal, 
+  setOpenModal, 
+  articleId, inputComment, fetchedComments,
+  setFetchedComments, setInputComment}) => {
+  
+  const classes = useStyles();
+
+  useEffect(()=>{
+    createComment(articleId, inputComment).then(r => {
+      setFetchedComments([r.data.content].concat(fetchedComments))
+      setInputComment('')
+      setOpenModal(false)
+    })
+    .catch(e => {
+      e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
+      setOpenModal(false)
+    })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
 }
 
 export default ActivityDetailContent

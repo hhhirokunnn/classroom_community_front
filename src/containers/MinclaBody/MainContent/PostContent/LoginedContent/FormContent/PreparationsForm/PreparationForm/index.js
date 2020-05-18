@@ -5,49 +5,41 @@ import MinclaLargeTextField from "../../../../../../../../components/MinclaLarge
 import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparationsParameter }) => {
+const PreparationForm = ({ preparationParameter, preparationsParameter, setPreparationsParameter }) => {
 
-  const [preparationParameter, setPreparationParameter] = useState({
-    preparation: "",
-    item: null,
-    itemUnit: null,
-    url: null
-  })
+  const [param, setPram] = useState(preparationParameter.param)
   
   const changePreparation = preparation => {
-    setPreparationParameter({...preparationParameter , preparation})
-  }
-
-  useEffect(()=>{
-    const me = preparationsParameter.filter(p => p.formId === preparationFormId)
-    me.length > 0 && setPreparationParameter(me[0].param)
-  },[])
+    setPram({...param , preparation})
+  }  
 
   useEffect(()=>{
     const newParams = preparationsParameter.map(p => {
-      if(p.formId === preparationFormId) {
-        return { formId: preparationFormId, param: preparationParameter }
+      if(p.formId === preparationParameter.formId) {
+        return { formId: preparationParameter.formId ,param}
+      } else {
+        return p
       }
-      return p
     })
+    console.log(newParams)
     setPreparationsParameter(newParams)
-  },[preparationParameter])
+  },[param])
 
   const validatePreparation = () => {
-    if(preparationParameter.preparation.length < 1) {
+    if(param.preparation.length < 1) {
       return "入力してください"
-    } else if(preparationParameter.preparation.length > 500) {
+    } else if(param.preparation.length > 500) {
       return "500文字以内で入力してください"
     }
     return ""
   }
 
   const changeItem = item => {
-    setPreparationParameter({...preparationParameter , item})
+    setPram({...param , item})
   }
 
   const validateItem = () => {
-    if(preparationParameter.item && preparationParameter.item.length > 100) {
+    if(param.item && param.item.length > 100) {
       return "100文字以内で入力してください"
     }
     return ""
@@ -55,11 +47,11 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
 
   const changeItemUnit = itemUnit => {
     const v = itemUnit > 0 ? itemUnit : 0
-    setPreparationParameter({...preparationParameter, itemUnit: v})
+    setPram({...param, itemUnit: v})
   }
 
   const changeUrl = url => {
-    setPreparationParameter({...preparationParameter , url})
+    setPram({...param , url})
   }
   
   return (<>
@@ -68,7 +60,7 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
       marginLeft={{ xs: '10px', sm: '20%', md: "20%", lg: "20%" }}>
       <MinclaLargeTextField
         targetLabel={"じゅんび内容*"} 
-        targetValue={preparationParameter.preparation} 
+        targetValue={param.preparation} 
         inputTarget={changePreparation} 
         validateValue={validatePreparation}
         marginBottom={"20px"}
@@ -77,7 +69,7 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
       />
       <MinclaTextField 
         targetLabel={"物品名"} 
-        targetValue={preparationParameter.item} 
+        targetValue={param.item} 
         inputTarget={changeItem}
         validateValue={validateItem}
         width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
@@ -89,7 +81,7 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
         <div style={{ display: 'inline-flex', float: 'left' }}>
             <MinclaTextField 
               targetLabel={"物品数"} 
-              targetValue={preparationParameter.itemUnit} 
+              targetValue={param.itemUnit} 
               inputTarget={changeItemUnit} 
               width={"70px"}
               type="number"
@@ -102,7 +94,7 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
       </Box>
       <MinclaTextField 
         targetLabel={"物品のページ(URL)"} 
-        targetValue={preparationParameter.url} 
+        targetValue={param.url} 
         inputTarget={changeUrl} 
         width={{ xs: '350px', sm: '450px', md: "450px", lg: "500px" }} 
         marginBottom={"20px"}

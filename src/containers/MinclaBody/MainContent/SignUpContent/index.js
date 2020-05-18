@@ -28,8 +28,6 @@ const SignUpContent = () => {
   const [disabledButton, setDisabledButton] = useState(true)
   const [openModal, setOpenModal] = useState(false)
 
-  const classes = useStyles();
-
   useEffect(()=>{
     const validateButton = () => {
       setDisabledButton(validateUserName().length > 1 || validateMail().length > 1 || validatePassword().length > 1)
@@ -81,8 +79,6 @@ const SignUpContent = () => {
 
   const requestSingUp = () => {
     setOpenModal(true)
-    signUp(userName, mail, password)
-    setOpenModal(false)
   }
 
   return (
@@ -137,14 +133,37 @@ const SignUpContent = () => {
           style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>
             ログインはこちら
         </div>
-        <Backdrop className={classes.backdrop} open={openModal}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
       </div>
+      {openModal && 
+        <ProgressModal 
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          userName={userName}
+          mail={mail}
+          password={password}/>}
     </Wrap>)
 }
-    /* font-family: "Tsukushi A Round Gothic","筑紫A丸ゴシック"; */
-    /* font-family: "UD デジタル 教科書体 NP-R","UD Digi Kyokasho NP-R"; */
-    /* font-family: "Droid Sans Fallback"; */
-    // font-family: "Noto Sans Mono CJK JP";
+
+const ProgressModal = ({openModal, setOpenModal, userName, mail, password}) => {
+  const classes = useStyles();
+
+  useEffect(()=>{
+    signUp(userName, mail, password)
+      .then(res => {
+        localStorage.setItem('token', res.data.content.token)
+        alert(res.data.message)
+        window.location.href = '/post'
+        setOpenModal(false)
+      })
+      .catch(e => {
+        e.response ? alert(e.response.data.message) : alert(e)
+        setOpenModal(false)
+      })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
+}
+
 export default SignUpContent

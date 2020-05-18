@@ -50,29 +50,14 @@ const StepsForm = ({ stepsParameter, setStepsParameter, isInvalidStepForm, setIs
         </Box>
       </>)
     })}
-    {/* {!stepsParameter[0] && <>
+    {stepsParameter.length < 5 && !isInvalidStepForm && <>
       <Box display="block" textAlign='left' marginLeft='18%'>
         <Button onClick={appendStepParameter}>
           <div><AddCircle width='30px' height='30px' color='yellowgreen'/></div>
-          <div>じゅんびを追加</div>
+          <div>ステップを追加</div>
         </Button>
-      </Box></>}
-      {JSON.stringify(stepsParameter)}
-    {!!!stepsParameter.some(p => p.param.step.length < 1 ) && <>
-      <Box display="block" textAlign='left' marginLeft='18%'>
-        <Button onClick={appendStepParameter}>
-          <div><AddCircle width='30px' height='30px' color='yellowgreen'/></div>
-          <div>じゅんびを追加</div>
-        </Button>
-      </Box></>} */}
-      {stepsParameter.length < 5 && !isInvalidStepForm && <>
-        <Box display="block" textAlign='left' marginLeft='18%'>
-          <Button onClick={appendStepParameter}>
-            <div><AddCircle width='30px' height='30px' color='yellowgreen'/></div>
-            <div>ステップを追加</div>
-          </Button>
-        </Box>
-      </>}
+      </Box>
+    </>}
         
 
   </>)

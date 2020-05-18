@@ -17,6 +17,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { Favorite } from '@styled-icons/material-sharp/Favorite';
 import { FavoriteBorder } from '@styled-icons/material/FavoriteBorder';
 import noimage from '../../../../assets/images/noimage.svg'
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: 'salmon',
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 const ActivityContent = () => {
@@ -48,16 +54,10 @@ const ActivityContent = () => {
   const [fetchedArticles, setFetchedArticles] = useState([])
   const [fetchedFavoriteArticles, setFetchedFavoriteArticles] = useState([])
 
+  const [openModal, setOpenModal] = useState(false)
+
   useEffect(() => {
-    const page = new URLSearchParams(window.location.search).get('page')
-    const renderPage = page ? page - 1 : 0
-    fetchArticles(renderPage).then(res => {
-      setFetchedArticles(res.data.content)
-    })
-    
-    localStorage.getItem("token") && fetchMarkedArticles().then(r => {
-      setFetchedFavoriteArticles(r.data.content.articles)
-    })
+    setOpenModal(true)
   }, [])
 
   const classes = useStyles();
@@ -178,7 +178,40 @@ const ActivityContent = () => {
           page={parseInt(new URLSearchParams(window.location.search).get('page')) || 1}
           onChange={changeActivityPage}/>
       </Box>
+      {openModal && 
+        <ProgressModal 
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          setFetchedArticles={setFetchedArticles}
+          setFetchedFavoriteArticles={setFetchedFavoriteArticles}
+        />}
     </>)
+}
+
+const ProgressModal = ({
+  openModal, 
+  setOpenModal, 
+  setFetchedArticles, setFetchedFavoriteArticles}) => {
+  
+  const classes = useStyles();
+
+  useEffect(()=>{
+    const page = new URLSearchParams(window.location.search).get('page')
+    const renderPage = page ? page - 1 : 0
+    fetchArticles(renderPage).then(res => {
+      setFetchedArticles(res.data.content)
+      setOpenModal(false)
+    })
+    
+    localStorage.getItem("token") && fetchMarkedArticles().then(r => {
+      setFetchedFavoriteArticles(r.data.content.articles)
+      setOpenModal(false)
+    })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
 }
 
 export default ActivityContent

@@ -2,17 +2,6 @@ import React, { useState } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
-}));
-
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -33,18 +22,9 @@ const RegisterStepperButton = ({
   sendRequest
  }) => {
 
-  const [openModal, setOpenModal] = useState(false)
-
-  const classes = useStyles();
-
   const registerStepUp = () => setRegisterStep(registerStep + 1)
   const registerStepDown = () => setRegisterStep(registerStep - 1)
 
-  const sendRegisterRequest = () => {
-    setOpenModal(true)
-    sendRequest()
-    setOpenModal(false)
-  }
 
   const ActivityNextButton = () => {
 
@@ -90,7 +70,7 @@ const RegisterStepperButton = ({
             variant="contained" 
             color="primary" 
             style={{ color: "white", fontWeight: 'bold' }} 
-            onClick={() => sendRegisterRequest()}>とうろく</ColorButton>}
+            onClick={() => sendRequest()}>とうろく</ColorButton>}
     </>)
   }
   
@@ -111,9 +91,6 @@ const RegisterStepperButton = ({
         {registerStep === 1 && <PreparationNextButton/>}
         {registerStep === 2 && <RegisterButton /> }
       </div>
-      <Backdrop className={classes.backdrop} open={openModal}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
     </>
     )
 }

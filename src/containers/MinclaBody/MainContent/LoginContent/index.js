@@ -26,7 +26,7 @@ const LoginContent = () => {
   const [disabledButton, setDisabledButton] = useState(true)
   const [openModal, setOpenModal] = useState(false)
 
-  const classes = useStyles();
+  
 
   useEffect(()=>{
     validateButton()
@@ -35,6 +35,13 @@ const LoginContent = () => {
   useEffect(()=>{
     setDisabledButton(true)
   }, [])
+
+  useEffect(()=>{
+    if(openModal) {
+      
+    }
+    
+  }, [openModal])
 
   const validateMail = () => {
     if(mail.length < 1) {
@@ -67,8 +74,6 @@ const LoginContent = () => {
 
   const requestLogin = () => {
     setOpenModal(true)
-    login(mail, password)
-    setOpenModal(false)
   }
 
   return (
@@ -114,10 +119,34 @@ const LoginContent = () => {
             登録はこちら
         </div>
       </div>
-      <Backdrop className={classes.backdrop} open={openModal}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      {openModal && 
+        <ProgressModal 
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          mail={mail}
+          password={password}/>}
     </Wrap>)
+}
+
+
+const ProgressModal = ({openModal, setOpenModal, mail, password}) => {
+  const classes = useStyles();
+
+  useEffect(()=>{
+    login(mail, password).then(res => {
+      localStorage.setItem('token', res.data.content.token)
+      window.location.href = '/post'
+      setOpenModal(false)
+    })
+    .catch(e => {
+      e.response ? alert(e.response.data.message) : alert(e)
+      setOpenModal(false)
+    })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
 }
 
 export default LoginContent

@@ -43,28 +43,12 @@ export const logout = () => {
 
 export const login = (mail, password) => {
 
-  return minclaBaseAxios().post('/login', 
-    { mail: mail, password: password })
-    .then(res => {
-      saveTokenToStorage(res.data.content.token)
-      alert(res.data.message)
-      window.location.href = '/post'
-    })
-    .catch(e => {
-      e.response ? alert(e.response.data.message) : alert(e)})
+  return minclaBaseAxios().post('/login', { mail: mail, password: password })
 }
 
 export const signUp = (userName, mail, password) => {
 
-  return minclaBaseAxios().post('/users', 
-    { name: userName, mail: mail, password: password })
-    .then(res => {
-      saveTokenToStorage(res.data.content.token)
-      alert(res.data.message)
-      window.location.href = '/post'
-    })
-    .catch(e => {
-      e.response ? alert(e.response.data.message) : alert(e)})
+  return minclaBaseAxios().post('/users', { name: userName, mail: mail, password: password })
 }
 
 export const fetchArticles = (from = 0) => minclaBaseAxios().get(`/articles?from=${from}&size=10`)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import RegisterStepper from './RegisterStepper'
 import RegisterStepperButton from './RegisterStepperButton'
@@ -6,6 +6,16 @@ import ActivityForm from "./FormContent/ActivityForm"
 import StepsForm from "./FormContent/StepsForm"
 import PreparationsForm from "./FormContent/PreparationsForm"
 import { minclaAuthedBaseAxios } from "../../../../../services/MinclaClient"
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 
 const LonginedContent = ({  }) => {
 
@@ -24,6 +34,8 @@ const LonginedContent = ({  }) => {
     const [isInvalidActivityForm, setIsInvalidActivityForm] = useState(true)
     const [isInvalidPreparationForm, setIsInvalidPreparationForm] = useState(false)
     const [isInvalidStepForm, setIsInvalidStepForm] = useState(false)
+    
+    const [openModal, setOpenModal] = useState(false)
 
     const createArticle = ({title, summary, estimatedTime, memberUnit, youtubeLink, image}) => {
 
@@ -40,9 +52,6 @@ const LonginedContent = ({  }) => {
     }
 
     const createPreparation = ({preparation, item, itemUnit, url, articleId}) => {
-      console.log("{preparation, item, itemUnit, url, articleId}")
-      console.log(preparation)
-      console.log(articleId)
       minclaAuthedBaseAxios().post('/materials', {
         preparation,
         item,
@@ -69,23 +78,7 @@ const LonginedContent = ({  }) => {
     }
 
     const sendRequest = () => {
-      createArticle(articleParameter).then(res => {
-        console.log(res)
-        console.log(res.data)
-        console.log(res.data.content)
-        console.log(res.data.content.id)
-        const articleId = res.data.content.id
-        
-        preparationsParameter.forEach(p => {
-          createPreparation({...p.param, articleId})
-        })
-        stepsParameter.forEach(p => {
-          createStep({...p.param, articleId})
-        })
-        alert("作成が完了しました")
-        }).catch(e => {
-          e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
-      })
+      setOpenModal(true)
     }
 
     return (<>
@@ -114,7 +107,50 @@ const LonginedContent = ({  }) => {
         isInvalidPreparationForm={isInvalidPreparationForm}
         isInvalidStepForm={isInvalidStepForm}
         sendRequest={sendRequest}/>
+      {openModal && 
+        <ProgressModal 
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          articleParameter={articleParameter}
+          preparationsParameter={preparationsParameter}
+          stepsParameter={stepsParameter}
+          createArticle={createArticle}
+          createPreparation={createPreparation}
+          createStep={createStep}
+        />}
     </>)
 }
+
+const ProgressModal = ({
+  openModal, 
+  setOpenModal, 
+  articleParameter, preparationsParameter, stepsParameter,
+  createArticle, createPreparation, createStep}) => {
+  
+  const classes = useStyles();
+
+  useEffect(()=>{
+    createArticle(articleParameter).then(res => {
+      const articleId = res.data.content.id
+      
+      preparationsParameter.forEach(p => {
+        createPreparation({...p.param, articleId})
+      })
+      stepsParameter.forEach(p => {
+        createStep({...p.param, articleId})
+      })
+      alert("作成が完了しました")
+      setOpenModal(false)
+    }).catch(e => {
+        e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
+        setOpenModal(false)
+    })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
+}
+
 
 export default LonginedContent

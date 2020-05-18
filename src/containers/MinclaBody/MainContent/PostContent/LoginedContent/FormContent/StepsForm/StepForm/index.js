@@ -17,8 +17,9 @@ const StepForm = ({ stepFormId, stepsParameter, setStepsParameter }) => {
     const newParams = stepsParameter.map(p => {
       if(p.formId === stepFormId) {
         return { formId: stepFormId, param: stepParameter }
+      } else if(p.formId !== stepFormId) {
+        return p
       }
-      return p
     })
     setStepsParameter(newParams)
   },[stepParameter])

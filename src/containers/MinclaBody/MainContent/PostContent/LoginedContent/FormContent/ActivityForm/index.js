@@ -13,6 +13,10 @@ const ActivityForm = ({ articleParameter, setArticleParameter, setIsInvalidActiv
   const fileInput = useRef(null)
 
   useEffect(()=>{
+    articleParameter.image && setFileName(articleParameter.image.name)
+  }, [])
+
+  useEffect(()=>{
     if(validateTitle().length > 0 || validateSummary().length > 0 || validateYoutubeLink().length > 0) {
       setIsInvalidActivityForm(true)
     } else {

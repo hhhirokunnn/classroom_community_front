@@ -39,53 +39,16 @@ const PreparationsForm = ({ preparationsParameter, setPreparationsParameter, isI
     }
   }
 
-  const PreparationFormSet = ({ 
-    param, 
-    preparationsParameter, 
-    setPreparationsParameter,
-    setIsInvalidPreparationForm
-  }) => {
-
-    return (<>
-      <PreparationForm 
-        preparationFormId={param.formId}
-        preparationsParameter={preparationsParameter}
-        setPreparationsParameter={setPreparationsParameter}
-        setIsInvalidPreparationForm={setIsInvalidPreparationForm}/>
-      <Box display="block" textAlign='left' marginLeft='18%'>
-        <Button onClick={() => removePreparationParameter(param.formId)}>
-          <div><Delete width='35px' height='35px' color='yellowgreen'/></div>
-          <div>じゅんびを取り消し</div>
-        </Button>
-      </Box>
-    </>)
-
-  }
-
   return (<>
     {preparationsParameter.map((param, index) => {
       return (<PreparationFormSet
         key={index}
+        preparationParameter={param}
         preparationFormId={param.formId}
         preparationsParameter={preparationsParameter}
-        setPreparationsParameter={setPreparationsParameter}
-        setIsInvalidPreparationForm={setIsInvalidPreparationForm} />)
+        removePreparationParameter={removePreparationParameter}
+        setPreparationsParameter={setPreparationsParameter}/>)
     })}
-    {/* {!preparationsParameter[0] && <>
-      <Box display="block" textAlign='left' marginLeft='18%'>
-        <Button onClick={appendPreparationParameter}>
-          <div><AddCircle width='30px' height='30px' color='yellowgreen'/></div>
-          <div>じゅんびを追加</div>
-        </Button>
-      </Box></>}
-      {JSON.stringify(preparationsParameter)}
-    {!!!preparationsParameter.some(p => p.param.preparation.length < 1 ) && <>
-      <Box display="block" textAlign='left' marginLeft='18%'>
-        <Button onClick={appendPreparationParameter}>
-          <div><AddCircle width='30px' height='30px' color='yellowgreen'/></div>
-          <div>じゅんびを追加</div>
-        </Button>
-      </Box></>} */}
       {preparationsParameter.length < 5 && !isInvalidPreparationForm && <>
         <Box display="block" textAlign='left' marginLeft='18%'>
           <Button onClick={appendPreparationParameter}>
@@ -94,6 +57,29 @@ const PreparationsForm = ({ preparationsParameter, setPreparationsParameter, isI
           </Button>
         </Box>
       </>}
+  </>)
+}
+
+const PreparationFormSet = ({ 
+  preparationParameter,
+  preparationFormId,
+  preparationsParameter,
+  setPreparationsParameter,
+  removePreparationParameter
+}) => {
+
+  return (<>
+    <PreparationForm 
+      preparationFormId={preparationFormId}
+      preparationParameter={preparationParameter}
+      preparationsParameter={preparationsParameter}
+      setPreparationsParameter={setPreparationsParameter}/>
+    <Box display="block" textAlign='left' marginLeft='18%'>
+      <Button onClick={() => removePreparationParameter(preparationFormId)}>
+        <div><Delete width='35px' height='35px' color='yellowgreen'/></div>
+        <div>じゅんびを取り消し</div>
+      </Button>
+    </Box>
   </>)
 }
 
