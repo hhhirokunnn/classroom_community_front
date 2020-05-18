@@ -2,24 +2,31 @@ import React, { useState, useEffect } from 'react';
 
 import { 
   Wrap,
-  ContentTitle,
-  UserAddSvg
+  ContentTitle
 }  from '../TopMainContent/style'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { login } from '../../../../services/MinclaClient'
 import MinclaTextField from "../../../../components/MinclaTextField"
+import { makeStyles } from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-// import { 
-//   StyledLoginForm
-// }  from './style'
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 
-const LoginContent = ({ }) => {
+const LoginContent = () => {
 
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
   const [disabledButton, setDisabledButton] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
+
+  const classes = useStyles();
 
   useEffect(()=>{
     validateButton()
@@ -59,7 +66,9 @@ const LoginContent = ({ }) => {
   }
 
   const requestLogin = () => {
+    setOpenModal(true)
     login(mail, password)
+    setOpenModal(false)
   }
 
   return (
@@ -77,6 +86,7 @@ const LoginContent = ({ }) => {
           <MinclaTextField 
             targetLabel={"メールアドレス"} 
             targetValue={mail} 
+            tyle='email'
             inputTarget={inputMail}
             validateValue={validateMail}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
@@ -87,6 +97,7 @@ const LoginContent = ({ }) => {
           <MinclaTextField 
             targetLabel={"パスワード"} 
             targetValue={password} 
+            type='password'
             inputTarget={inputPassword}
             validateValue={validatePassword}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
@@ -103,6 +114,9 @@ const LoginContent = ({ }) => {
             登録はこちら
         </div>
       </div>
+      <Backdrop className={classes.backdrop} open={openModal}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Wrap>)
 }
 

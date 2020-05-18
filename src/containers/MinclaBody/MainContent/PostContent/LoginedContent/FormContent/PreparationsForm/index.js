@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { AddCircle } from "@styled-icons/material-sharp/AddCircle";
 import { Delete } from "@styled-icons/typicons/Delete";
@@ -39,22 +39,37 @@ const PreparationsForm = ({ preparationsParameter, setPreparationsParameter, isI
     }
   }
 
+  const PreparationFormSet = ({ 
+    param, 
+    preparationsParameter, 
+    setPreparationsParameter,
+    setIsInvalidPreparationForm
+  }) => {
+
+    return (<>
+      <PreparationForm 
+        preparationFormId={param.formId}
+        preparationsParameter={preparationsParameter}
+        setPreparationsParameter={setPreparationsParameter}
+        setIsInvalidPreparationForm={setIsInvalidPreparationForm}/>
+      <Box display="block" textAlign='left' marginLeft='18%'>
+        <Button onClick={() => removePreparationParameter(param.formId)}>
+          <div><Delete width='35px' height='35px' color='yellowgreen'/></div>
+          <div>じゅんびを取り消し</div>
+        </Button>
+      </Box>
+    </>)
+
+  }
+
   return (<>
     {preparationsParameter.map((param, index) => {
-      return (<>
-        <PreparationForm 
-          key={index}
-          preparationFormId={param.formId}
-          preparationsParameter={preparationsParameter}
-          setPreparationsParameter={setPreparationsParameter}
-          setIsInvalidPreparationForm={setIsInvalidPreparationForm}/>
-        <Box display="block" textAlign='left' marginLeft='18%'>
-          <Button onClick={() => removePreparationParameter(param.formId)}>
-            <div><Delete width='35px' height='35px' color='yellowgreen'/></div>
-            <div>じゅんびを取り消し</div>
-          </Button>
-        </Box>
-      </>)
+      return (<PreparationFormSet
+        key={index}
+        preparationFormId={param.formId}
+        preparationsParameter={preparationsParameter}
+        setPreparationsParameter={setPreparationsParameter}
+        setIsInvalidPreparationForm={setIsInvalidPreparationForm} />)
     })}
     {/* {!preparationsParameter[0] && <>
       <Box display="block" textAlign='left' marginLeft='18%'>

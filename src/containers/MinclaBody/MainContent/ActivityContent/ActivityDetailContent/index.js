@@ -14,8 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 
 import { Favorite } from '@styled-icons/material-sharp/Favorite';
@@ -75,17 +73,6 @@ const ActivityDetailContent = ({ articleId }) => {
       e.response ? alert('コメントが取得できませんでした。リロードしてください。') : alert(e)
     })
   },[])
-
-  // const AricleImage = () => {
-  //   return (<>
-  //     <Box display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}>
-  //       {fetchedArticleDetail.article.image ? <img src={fetchedArticleDetail.article.image} width="300px" /> : <img src={noimage} width="300px"  alt={`no image`}/>}
-  //     </Box>
-  //     <Box display={{ xs: 'none', sm: 'block', md: "block", lg: "block" }}>
-  //       {fetchedArticleDetail.article.image ? <img src={fetchedArticleDetail.article.image} width="600px" /> : <img src={noimage} width="600px"  alt={`no image`}/>}
-  //     </Box>
-  //   </>)
-  // }
 
   const FavoriteButton = () => {
       
@@ -200,17 +187,17 @@ const ActivityDetailContent = ({ articleId }) => {
             <Box 
               component='div'
               display={{ xs: 'none', sm: 'none', md: "none", lg: "block" }}>
-              <iframe width="600" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe title={`${fetchedArticleDetail.article.title}_youtube_big`} width="600" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </Box>
             <Box 
               component='div'
               display={{ xs: 'none', sm: 'block', md: "block", lg: "none" }}>
-              <iframe width="580" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe title={`${fetchedArticleDetail.article.title}_youtube_midium`} width="580" height="400" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </Box>
             <Box 
               component='div'
               display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}>
-              <iframe width="300" height="200" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe title={`${fetchedArticleDetail.article.title}_youtube_small`} width="300" height="200" src={fetchedArticleDetail.article.youtubeLink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </Box>
           </CardContent>
         </Card>

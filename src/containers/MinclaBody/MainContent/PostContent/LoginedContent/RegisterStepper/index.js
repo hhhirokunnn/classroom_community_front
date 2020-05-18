@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { 
   Wrap,
   NotCompleteStep, 
   CompleteStep,
-  StepContent,
   StepBar, StepTitle, HorizenBar
 } from "./style"
 

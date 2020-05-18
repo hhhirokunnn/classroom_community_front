@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Wrap,
   ContentTitle,
   ContentDescription,
-  ContentImg
 }  from '../style'
 import kids from '../../../../../assets/images/kids.png'
 import Box from '@material-ui/core/Box';

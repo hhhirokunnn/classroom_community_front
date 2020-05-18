@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { AddCircle } from "@styled-icons/material-sharp/AddCircle";
 import { Delete } from "@styled-icons/typicons/Delete";

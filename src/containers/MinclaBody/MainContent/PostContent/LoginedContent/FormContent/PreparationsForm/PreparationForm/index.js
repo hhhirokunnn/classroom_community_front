@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import MinclaTextField from "../../../../../../../../components/MinclaTextField"
 import MinclaLargeTextField from "../../../../../../../../components/MinclaLargeTextField"
@@ -27,9 +27,8 @@ const PreparationForm = ({ preparationFormId, preparationsParameter, setPreparat
     const newParams = preparationsParameter.map(p => {
       if(p.formId === preparationFormId) {
         return { formId: preparationFormId, param: preparationParameter }
-      } else if(p.formId !== preparationFormId) {
-        return p
       }
+      return p
     })
     setPreparationsParameter(newParams)
   },[preparationParameter])

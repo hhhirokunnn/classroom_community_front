@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ButtonBox, ButtonIcon, ButtonLabel, HomeIcon } from './style'
+import { ButtonIcon, ButtonLabel, HomeIcon } from './style'
 import Box from '@material-ui/core/Box';
 
 const PageSelectButton = ({ label, svgComponent, selfPath }) => {

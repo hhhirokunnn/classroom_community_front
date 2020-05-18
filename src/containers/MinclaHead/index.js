@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import styled from 'styled-components'
+import React from 'react';
 // import topTitle from 'src/assets/images/top_title.png'
 import topTitle from '../../assets/images/top-title.png'
 import PageNavigation from './PageNavigation'

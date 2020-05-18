@@ -1,20 +1,12 @@
 import axios from 'axios';
 
 export const minclaAuthedBaseAxios = () => axios.create({
-  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+  baseURL: 'https://api.min-cla.work/api',
   responseType: 'json',
   headers: {
     'Authorization': localStorage.getItem('token')
   }
 });
-
-// export const minclaAuthedBaseAxios = () => axios.create({
-//   baseURL: 'https://api.min-cla.work/api',
-//   responseType: 'json',
-//   headers: {
-//     'Authorization': localStorage.getItem('token')
-//   }
-// });
 
 // export const minclaAuthedBaseAxios = () => axios.create({
 //   baseURL: 'http://localhost:8080/api',
@@ -25,31 +17,14 @@ export const minclaAuthedBaseAxios = () => axios.create({
 // });
 
 const minclaBaseAxios = () => axios.create({
-  baseURL: 'http://ec2-54-238-146-42.ap-northeast-1.compute.amazonaws.com:8080/api',
+  baseURL: 'https://api.min-cla.work/api',
   responseType: 'json'
 });
-
-// const minclaBaseAxios = () => axios.create({
-//   baseURL: 'https://api.min-cla.work/api',
-//   responseType: 'json'
-// });
 
 
 // const minclaBaseAxios = () => axios.create({
 //   baseURL: 'http://localhost:8080/api',
 //   responseType: 'json'
-// });
-
-// const minclaJsonClient = () => minclaAuthedAxios().create({
-//   headers: {
-//     'Content-Type': 'application/json'
-//   }
-// });
-
-// const minclaFormDataClient = () => minclaAuthedAxios().create({
-//   headers: {
-//     'Content-Type': 'multipart/form-data',
-//   }
 // });
 
 const saveTokenToStorage = token => localStorage.setItem('token', token)

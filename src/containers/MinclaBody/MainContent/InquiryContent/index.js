@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { 
   Wrap,
   ContentTitle,
-  ContentDescription,
-  ContentImg
+  ContentDescription
 }  from '../TopMainContent/style'
 
-const InquiryContent = ({ }) => {
+const InquiryContent = () => {
 
   return (
     <Wrap>

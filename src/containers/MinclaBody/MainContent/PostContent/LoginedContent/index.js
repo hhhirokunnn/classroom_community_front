@@ -1,12 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
-// import ActivityForm from "./ActivityForm"
-// import StepForm from "./StepForm"
-// import PreparationForm from "./PreparationForm"
-import { createArticle } from "../../../../../services/MinclaClient"
 import RegisterStepper from './RegisterStepper'
 import RegisterStepperButton from './RegisterStepperButton'
-// import FormContent from './FormContent'
 import ActivityForm from "./FormContent/ActivityForm"
 import StepsForm from "./FormContent/StepsForm"
 import PreparationsForm from "./FormContent/PreparationsForm"
@@ -18,10 +13,10 @@ const LonginedContent = ({  }) => {
     const [articleParameter, setArticleParameter] = useState({
       title: '',
       summary: '',
-      estimatedTime: null,
-      memberUnit: null,
-      youtubeLink: null,
-      image: null
+      // estimatedTime: null, comment out for warning
+      // memberUnit: null,
+      // youtubeLink: null,
+      // image: null
     })
     const [preparationsParameter, setPreparationsParameter] = useState([])
     const [stepsParameter, setStepsParameter] = useState([])
@@ -82,15 +77,8 @@ const LonginedContent = ({  }) => {
         const articleId = res.data.content.id
         
         preparationsParameter.forEach(p => {
-          console.log("preparationsParameter")
-          console.log(p.param)
-          console.log(p.param.preparation)
-        })
-        preparationsParameter.forEach(p => {
           createPreparation({...p.param, articleId})
         })
-        console.log("stepsParameter")
-        console.log(stepsParameter)
         stepsParameter.forEach(p => {
           createStep({...p.param, articleId})
         })

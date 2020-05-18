@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 
@@ -11,6 +11,9 @@ const MinclaTextField = ({
   marginBottom,
   type,
   InputProps,
+  require,
+  pattern,
+  size
 }) => {
 
   const [errorMessage, setErrorMessage] = useState('')
@@ -35,6 +38,9 @@ const MinclaTextField = ({
           helperText={errorMessage}
           fullWidth={true}
           type={type}
+          require={require}
+          pattern={pattern}
+          size={size}
           InputProps={InputProps}
           InputLabelProps={{
             shrink: true,
@@ -47,6 +53,9 @@ const MinclaTextField = ({
           onBlur={doValidate}
           fullWidth={true}
           type={type}
+          require={require}
+          pattern={pattern}
+          size={size}
           InputProps={InputProps}
           InputLabelProps={{
             shrink: true,

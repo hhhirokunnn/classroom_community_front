@@ -71,7 +71,7 @@ const ActivityContent = () => {
   const ArticleItem = ({ title, summary, authorName, image, id }) => {
 
     const displayImage = () => {
-      return image ? <img src={image} width={290} alt={`${title} image`}/> : <img src={noimage} width={290} height={10} alt={`no image`}/>
+      return image ? <img src={image} width={290} alt={`${title}`}/> : <img src={noimage} width={290} height={10} alt={`noimage`}/>
     }
 
     const FavoriteButton = () => {

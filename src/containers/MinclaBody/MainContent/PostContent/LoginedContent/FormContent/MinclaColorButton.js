@@ -1,5 +1,4 @@
 import Button from '@material-ui/core/Button';
-import { lime } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
 
 const MinclaColorButton = withStyles((theme) => ({

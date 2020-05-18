@@ -10,7 +10,7 @@ import {
   LogoutSvg
 } from './style'
 import PageSelectButton from './PageSelectButton'
-import { login, logout } from '../../../services/MinclaClient'
+import { logout } from '../../../services/MinclaClient'
 import Box from '@material-ui/core/Box';
 
 const PageNavigation = () => {

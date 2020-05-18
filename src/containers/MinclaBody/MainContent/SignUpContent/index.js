@@ -2,27 +2,38 @@ import React, { useState, useEffect } from 'react';
 
 import { 
   Wrap,
-  ContentTitle,
-  UserAddSvg
+  ContentTitle
 }  from '../TopMainContent/style'
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { signUp } from '../../../../services/MinclaClient'
 import MinclaTextField from "../../../../components/MinclaTextField"
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 
-// import { 
-//   StyledLoginForm
-// }  from './style'
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 
-const SignUpContent = ({ }) => {
+
+const SignUpContent = () => {
 
   const [userName, setUserName] = useState('')
   const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
   const [disabledButton, setDisabledButton] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
+
+  const classes = useStyles();
 
   useEffect(()=>{
+    const validateButton = () => {
+      setDisabledButton(validateUserName().length > 1 || validateMail().length > 1 || validatePassword().length > 1)
+    }
     validateButton()
   }, [userName, mail, password])
 
@@ -68,12 +79,10 @@ const SignUpContent = ({ }) => {
     validatePassword(password)
   }
 
-  const validateButton = () => {
-    setDisabledButton(validateUserName().length > 1 || validateMail().length > 1 || validatePassword().length > 1)
-  }
-
   const requestSingUp = () => {
+    setOpenModal(true)
     signUp(userName, mail, password)
+    setOpenModal(false)
   }
 
   return (
@@ -101,6 +110,7 @@ const SignUpContent = ({ }) => {
           <MinclaTextField 
             targetLabel={"メールアドレス"} 
             targetValue={mail} 
+            type='email'
             inputTarget={inputMail}
             validateValue={validateMail}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
@@ -111,6 +121,7 @@ const SignUpContent = ({ }) => {
           <MinclaTextField 
             targetLabel={"パスワード"} 
             targetValue={password} 
+            type='password'
             inputTarget={inputPassword}
             validateValue={validatePassword}
             width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
@@ -118,71 +129,6 @@ const SignUpContent = ({ }) => {
             marginBottom={"20px"}
           />
         </Box>
-        {/* <form noValidate autoComplete="off"> */}
-          {/* <Box display="block" marginBottom={3} 
-            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
-            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
-            {userNameError.length > 0 ? 
-              <TextField
-                error
-                label="なまえ"
-                value={userName}
-                onChange={e => inputUserName(e.target.value)}
-                onBlur={validateUserName}
-                helperText={userNameError}
-                fullWidth={true}
-              />: 
-              <TextField
-                label="なまえ"
-                value={userName}
-                onChange={e => inputUserName(e.target.value)}
-                onBlur={validateUserName}
-                fullWidth={true}
-              />}
-          </Box> */}
-          {/* <Box display="block" marginBottom={3}
-            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
-            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
-            {mailError.length > 0 ? 
-              <TextField
-                error
-                label="メールアドレス"
-                value={mail}
-                onChange={e => inputMail(e.target.value)}
-                onBlur={validateMail}
-                helperText={mailError}
-                fullWidth={true}
-              />: 
-              <TextField
-                label="メールアドレス"
-                value={mail}
-                onChange={e => inputMail(e.target.value)}
-                onBlur={validateMail}
-                fullWidth={true}
-              />}
-          </Box>
-          <Box display="block" marginBottom={5} 
-            width={{ xs: '300px', sm: '450px', md: "450px", lg: "450px" }} 
-            marginLeft={{ xs: '30px', sm: '20%', md: "34%", lg: "34%" }}>
-            {passwordError.length > 0 ? 
-              <TextField
-                error
-                label="パスワード"
-                value={password}
-                onChange={e => inputPassword(e.target.value)}
-                onBlur={validatePassword}
-                helperText={passwordError}
-                fullWidth={true}
-              />: 
-              <TextField
-                label="パスワード"
-                value={password}
-                onChange={e => inputPassword(e.target.value)}
-                onBlur={validatePassword}
-                fullWidth={true}
-              />}
-          </Box> */}
-        {/* </form> */}
         {disabledButton ? 
           <Button variant="contained" disabled>登録する</Button>
           : <Button variant="contained" onClick={requestSingUp}>登録する</Button>}
@@ -191,8 +137,14 @@ const SignUpContent = ({ }) => {
           style={{ marginTop: '30px', fontSize: '10px', marginBottom: '20px', color: 'salmon', fontWeight: 'bold' }}>
             ログインはこちら
         </div>
+        <Backdrop className={classes.backdrop} open={openModal}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
     </Wrap>)
 }
-
+    /* font-family: "Tsukushi A Round Gothic","筑紫A丸ゴシック"; */
+    /* font-family: "UD デジタル 教科書体 NP-R","UD Digi Kyokasho NP-R"; */
+    /* font-family: "Droid Sans Fallback"; */
+    // font-family: "Noto Sans Mono CJK JP";
 export default SignUpContent
