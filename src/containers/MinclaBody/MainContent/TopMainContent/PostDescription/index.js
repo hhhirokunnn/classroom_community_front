@@ -8,21 +8,22 @@ import kids from '../../../../../assets/images/kids.png'
 import sm_kids from '../../../../../assets/images/sm_kids.png'
 import Box from '@material-ui/core/Box';
 
-const OnlineClassroom = () => {
+const PostDescription = () => {
 
   return (
   <Wrap>
     <div>
       <ContentTitle>
-        オンラインクラスルームとは？
+        ポストの使い方
       </ContentTitle>
       <ContentDescription>
-        子どもたちの規則正しい生活リズムを<br />
-        サポートするためオンラインで<br />
-        朝のクラス会を行う取り組みです。<br /><br />
-        ビデオチャット(zoomなど)を使って<br />
-        子どもたちが顔を見合わせることで<br />
-        擬似的に学校に通う生活リズムを作ります。<br />
+        アクティビティを共有できます。<br />
+        <br />
+          ・アクティビティの説明<br />
+          ・アクティビティの準備<br />
+          ・アクティビティの手順<br />
+          <br />
+        を書いて、ぜひ共有してください！<br />
         <Box
           marginBottom={{ xs: '30px', sm: '0px', md: "0px", lg: "0px" }}
         />
@@ -49,4 +50,4 @@ const OnlineClassroom = () => {
   </Wrap>)
 }
 
-export default OnlineClassroom
+export default PostDescription

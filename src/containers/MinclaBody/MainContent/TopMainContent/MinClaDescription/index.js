@@ -8,21 +8,18 @@ import kids from '../../../../../assets/images/kids.png'
 import sm_kids from '../../../../../assets/images/sm_kids.png'
 import Box from '@material-ui/core/Box';
 
-const OnlineClassroom = () => {
+const MinClaDescription = () => {
 
   return (
   <Wrap>
     <div>
       <ContentTitle>
-        オンラインクラスルームとは？
+        みんクラとは？
       </ContentTitle>
       <ContentDescription>
-        子どもたちの規則正しい生活リズムを<br />
-        サポートするためオンラインで<br />
-        朝のクラス会を行う取り組みです。<br /><br />
-        ビデオチャット(zoomなど)を使って<br />
-        子どもたちが顔を見合わせることで<br />
-        擬似的に学校に通う生活リズムを作ります。<br />
+        オンラインクラスルームをより楽しく行える<br />
+        アクティビティを探したり、シェアできます。<br />
+        皆さんの楽しいをぜひ共有してください！<br /><br />
         <Box
           marginBottom={{ xs: '30px', sm: '0px', md: "0px", lg: "0px" }}
         />
@@ -49,4 +46,4 @@ const OnlineClassroom = () => {
   </Wrap>)
 }
 
-export default OnlineClassroom
+export default MinClaDescription

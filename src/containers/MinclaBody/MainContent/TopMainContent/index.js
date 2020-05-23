@@ -2,6 +2,12 @@ import React from 'react';
 
 import OnlineClassroom from './OnlineClassroom'
 import Preparation from './Preparation'
+import JustDoIt from './JustDoIt'
+import LastWord from './LastWord'
+import ActivityDescription from './ActivityDescription'
+import PostDescription from './PostDescription'
+import MinClaDescription from './MinClaDescription'
+
 import Box from '@material-ui/core/Box';
 
 const TopMainContent = ({ menuItemTag }) => {
@@ -14,9 +20,15 @@ const TopMainContent = ({ menuItemTag }) => {
       case 'prepare': 
         return <Preparation/>
       case 'try': 
-        return <></>
+        return <JustDoIt/>
       case 'last': 
-        return <></>
+        return <LastWord/>
+      case 'min-cla-description': 
+        return <MinClaDescription/>
+      case 'activity-description': 
+        return <ActivityDescription/>
+      case 'post-description': 
+        return <PostDescription/>
       default:
         return <OnlineClassroom/>
     }
@@ -32,6 +44,14 @@ const TopMainContent = ({ menuItemTag }) => {
       <OnlineClassroom/>
       <br/><br/><br/>
       <Preparation/>
+      <br/><br/><br/>
+      <JustDoIt/>
+      <br/><br/><br/>
+      <LastWord/>
+      <br/><br/><br/>
+      <ActivityDescription/>
+      <br/><br/><br/>
+      <PostDescription/>
     </Box>
   </>)
 }

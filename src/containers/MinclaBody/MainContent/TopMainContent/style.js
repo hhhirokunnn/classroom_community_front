@@ -14,12 +14,12 @@ export const ContentTitle = styled.div`
   font-weight: bold;
   margin-bottom: 10px;
   color: salmon;
-  font-size: 30px;
+  font-size: 26px;
 `
 
 export const ContentDescription = styled.div`
   font-size: 20px;
-  // margin-bottom: 24px;
+  margin-top: 30px;
 `
 
 export const UserAddSvg = styled(UserAdd)`

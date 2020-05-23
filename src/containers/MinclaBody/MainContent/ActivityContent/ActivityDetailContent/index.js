@@ -7,7 +7,6 @@ import noimage from '../../../../../assets/images/noimage.svg'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,30 +50,19 @@ const ActivityDetailContent = ({ articleId }) => {
   const [fetchedComments, setFetchedComments] = useState([])
   const [inputComment, setInputComment] = useState('')
   
-  const [openModal, setOpenModal] = useState(false)
+  const [openArticleModal, setOpenArticleModal] = useState(false)
+  const [openCommentModal, setOpenCommentModal] = useState(false)
 
   const changeComment = _comment => {
     setInputComment(_comment)
   }
 
   const sendComment = () => {
-    setOpenModal(true)
+    setOpenCommentModal(true)
   }
 
   useEffect(()=> {
-    fetchArticleDetail(articleId)
-      .then(r => setFetchedArticleDetail(r.data.content))
-      .catch(e => {
-        e.response ? alert(e.response.data.message) : alert(e)
-        window.location.href = "/activity"
-      })
-    localStorage.getItem("token") && fetchMarkedArticles().then(r => {
-      setFetchedFavoriteArticles(r.data.content.articles)
-    })
-    fetchComments(articleId).then(r => setFetchedComments(r.data.content))
-    .catch(e => {
-      e.response ? alert('コメントが取得できませんでした。リロードしてください。') : alert(e)
-    })
+    setOpenArticleModal(true)
   },[])
 
   const FavoriteButton = () => {
@@ -147,11 +135,18 @@ const ActivityDetailContent = ({ articleId }) => {
       <Box component='div' margin='8px'>
         <Card >
           <CardHeader title={`ステップその${index}`}/>
-          <CardMedia
-            className={classes.media}
-            image={image ? image : noimage}
-            title={`step${index}: image`}
-          />
+          <Box display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}>
+            <img src={image ? image : noimage} width='300px' title={`step${index}: image`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'block', md: "none", lg: "none" }}>
+            <img src={image ? image : noimage} width='650px' title={`step${index}: image`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'none', md: "block", lg: "none" }}>
+            <img src={image ? image : noimage} width='550px' title={`step${index}: image`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'none', md: "none", lg: "block" }}>
+            <img src={image ? image : noimage} width='800px' title={`step${index}: image`} />
+          </Box>
           <CardContent>
             <div style={{ wordWrap: 'break-word', fontSize: '20px' }}>
               {description}
@@ -207,8 +202,8 @@ const ActivityDetailContent = ({ articleId }) => {
       </Box>
     )
   }
-  
-  const classes = useStyles();
+
+  const displayImage = () => fetchedArticleDetail.article.image ? fetchedArticleDetail.article.image : noimage
 
   return (<>
     <Box component='div'>
@@ -224,11 +219,18 @@ const ActivityDetailContent = ({ articleId }) => {
             fontSize={{ xs: '16px', sm: '16px', md: "16px", lg: "16px" }}>
             <span style={{color: 'gray' }}>作者：{fetchedArticleDetail.authorName}</span>
           </Box>
-          <CardMedia
-            className={classes.media}
-            image={fetchedArticleDetail.article.image ? fetchedArticleDetail.article.image : noimage}
-            title="Paella dish"
-          />
+          <Box display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}>
+            <img src={displayImage()} width='300px' title={`${fetchedArticleDetail.article.title}`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'block', md: "none", lg: "none" }}>
+            <img src={displayImage()} width='650px' title={`${fetchedArticleDetail.article.title}`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'none', md: "block", lg: "none" }}>
+            <img src={displayImage()} width='550px' title={`${fetchedArticleDetail.article.title}`} />
+          </Box>
+          <Box display={{ xs: 'none', sm: 'none', md: "none", lg: "block" }}>
+            <img src={displayImage()} width='800px' title={`${fetchedArticleDetail.article.title}`} />
+          </Box>
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
               <div style={{ wordWrap: 'break-word', fontSize: '20px' }}>
@@ -298,10 +300,20 @@ const ActivityDetailContent = ({ articleId }) => {
             style={{ fontWeight: 'bold' }} 
             disabled>コメントを送信</Button>) }
       </div>
-      {openModal && 
-        <ProgressModal 
-          openModal={openModal}
-          setOpenModal={setOpenModal}
+      {openArticleModal && 
+        <ArticleProgressModal 
+          openArticleModal={openArticleModal}
+          setOpenArticleModal={setOpenArticleModal}
+          articleId={articleId}
+          setFetchedFavoriteArticles={setFetchedFavoriteArticles}
+          setFetchedComments={setFetchedComments}
+          fetchComments={fetchComments}
+          setFetchedArticleDetail={setFetchedArticleDetail}
+        />}
+      {openCommentModal && 
+        <CommentProgressModal 
+          openCommentModal={openCommentModal}
+          setOpenCommentModal={setOpenCommentModal}
           articleId={articleId}
           inputComment={inputComment}
           fetchedComments={fetchedComments}
@@ -312,9 +324,46 @@ const ActivityDetailContent = ({ articleId }) => {
   </>)
 }
 
-const ProgressModal = ({
-  openModal, 
-  setOpenModal, 
+const ArticleProgressModal = ({
+  openArticleModal, 
+  setOpenArticleModal, 
+  articleId,
+  setFetchedArticleDetail,
+  setFetchedComments, setFetchedFavoriteArticles, fetchComments}) => {
+  
+  const classes = useStyles();
+
+  useEffect(()=>{
+    fetchArticleDetail(articleId)
+      .then(r => {
+        setFetchedArticleDetail(r.data.content)
+      })
+      .catch(e => {
+        e.response ? alert(e.response.data.message) : alert(e)
+        window.location.href = "/activity"
+        setOpenArticleModal(false)
+      })
+    localStorage.getItem("token") && fetchMarkedArticles().then(r => {
+      setFetchedFavoriteArticles(r.data.content.articles)
+    })
+    fetchComments(articleId).then(r => {
+      setFetchedComments(r.data.content)
+      setOpenArticleModal(false)
+    })
+    .catch(e => {
+      e.response ? alert('コメントが取得できませんでした。リロードしてください。') : alert(e)
+      setOpenArticleModal(false)
+    })
+  },[])
+
+  return (<Backdrop className={classes.backdrop} open={openArticleModal}>
+    <CircularProgress color="inherit" />
+  </Backdrop>)
+}
+
+const CommentProgressModal = ({
+  openCommentModal, 
+  setOpenCommentModal, 
   articleId, inputComment, fetchedComments,
   setFetchedComments, setInputComment}) => {
   
@@ -324,15 +373,15 @@ const ProgressModal = ({
     createComment(articleId, inputComment).then(r => {
       setFetchedComments([r.data.content].concat(fetchedComments))
       setInputComment('')
-      setOpenModal(false)
+      setOpenCommentModal(false)
     })
     .catch(e => {
       e.response ? alert(e.response.data.message) : alert("サーバに問題が発生しました。時間を置いてから再度アクセスしてください")
-      setOpenModal(false)
+      setOpenCommentModal(false)
     })
   },[])
 
-  return (<Backdrop className={classes.backdrop} open={openModal}>
+  return (<Backdrop className={classes.backdrop} open={openCommentModal}>
     <CircularProgress color="inherit" />
   </Backdrop>)
 }

@@ -4,25 +4,22 @@ import {
   ContentTitle,
   ContentDescription,
 }  from '../style'
-import kids from '../../../../../assets/images/kids.png'
-import sm_kids from '../../../../../assets/images/sm_kids.png'
+import rotate from '../../../../../assets/images/rotate.png'
 import Box from '@material-ui/core/Box';
 
-const OnlineClassroom = () => {
+const JustDoIt = () => {
 
   return (
   <Wrap>
     <div>
       <ContentTitle>
-        オンラインクラスルームとは？
+        やってみる
       </ContentTitle>
       <ContentDescription>
-        子どもたちの規則正しい生活リズムを<br />
-        サポートするためオンラインで<br />
-        朝のクラス会を行う取り組みです。<br /><br />
-        ビデオチャット(zoomなど)を使って<br />
-        子どもたちが顔を見合わせることで<br />
-        擬似的に学校に通う生活リズムを作ります。<br />
+        外出自粛を我慢だけ乗り越えるのではなく、<br />
+        健康的で充実した時間を送ることができるように<br />
+        新しいことを始めてみましょう！<br />
+        <br /><br />
         <Box
           marginBottom={{ xs: '30px', sm: '0px', md: "0px", lg: "0px" }}
         />
@@ -34,7 +31,7 @@ const OnlineClassroom = () => {
           height={{ xs: '100px', sm: '250px', md: "200px", lg: "200px" }}
           display={{ xs: 'block', sm: 'none', md: "none", lg: "none" }}
           margin='auto'
-          src={sm_kids}
+          src={rotate}
         />
         <Box
           component='img'
@@ -42,11 +39,11 @@ const OnlineClassroom = () => {
           height={{ xs: '100px', sm: '250px', md: "200px", lg: "200px" }}
           display={{ xs: 'none', sm: 'block', md: "block", lg: "block" }}
           margin='auto'
-          src={kids}
+          src={rotate}
         />
       </div>
     </div>
   </Wrap>)
 }
 
-export default OnlineClassroom
+export default JustDoIt

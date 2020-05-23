@@ -18,7 +18,7 @@ const InquiryContent = () => {
           お手数をおかけして申し訳ございませんが、<br/>
           以下のメールアドレスへメールしてください。<br/>
           <br/>
-          xxxx@gmail.com
+          min.cla.community@gmail.com 
         </ContentDescription>
       </div>
     </Wrap>)

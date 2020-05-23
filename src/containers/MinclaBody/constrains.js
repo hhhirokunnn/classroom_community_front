@@ -20,18 +20,19 @@ export const TopMenuItemList = [
     ]
   },
   {
-    title: 'アクティビティとは？',
-    items: [{
-        title: 'オンラインクラスルームとは？',
-        tag: 'online'
+    title: 'みんクラについて',
+    items: [
+      {
+        title: 'みんクラとは？',
+        tag: 'min-cla-description'
       },
-    ]
-  },
-  {
-    title: 'ポストとは？',
-    items: [{
-        title: 'オンラインクラスルームとは？',
-        tag: 'online'
+      {
+        title: 'アクティビティの使い方',
+        tag: 'activity-description'
+      },
+      {
+        title: 'ポストの使い方',
+        tag: 'post-description'
       },
     ]
   },
